@@ -1,0 +1,28 @@
+<div class="navbar">
+  <ul>
+    <li class="active">
+      <%= link_to home_path do %>
+        <i class="fa-solid fa-house"></i>
+        <p><%= t "navbar.home" %></p>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to "#" do %>
+        <i class="fa-solid fa-book-open"></i>
+        <p><%= t "navbar.subject" %></p>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to "#" do %>
+        <i class="fa-solid fa-file"></i>
+        <p><%= t "navbar.exam" %></p>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to "#" do %>
+        <i class="fa-solid fa-file-lines"></i>
+        <p><%= t "navbar.result" %></p>
+      <% end %>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,16 @@
+vi:
+  pages:
+    home:
+      title: "TRANG CHỦ"
+      heading: "Trang chủ"
+      content: "Tìm tôi tại app/views/pages/home.html.erb"
+  placeholder:
+    search: "Tìm kiếm ..."
+  user:
+    username: "Tên người dùng"
+  navbar:
+    home: "TRANG CHỦ"
+    subject: "MÔN HỌC"
+    exam: "BÀI KIỂM TRA"
+    result: "KẾT QUẢ"
+  title: "EXAMO"
