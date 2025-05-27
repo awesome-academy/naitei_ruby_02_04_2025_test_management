@@ -1,0 +1,69 @@
+<% provide :title, t("pages.signup.title") %>
+
+<div class="signup-page-wrapper">
+  <div class="image">
+    <%= image_tag "background_image.jpg", alt: "Logo", class: "signup-image" %>
+  </div>
+  <div class="main-content">
+    <h2><%= t "pages.signup.heading" %></h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <div class="field">
+        <div class="field-label">
+          <i class="fa-solid fa-user-large"></i>
+          <%= f.label :name %><br />
+        </div>
+        <%= f.text_field :name, autofocus: true, autocomplete: "username" %>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <i class="fa-solid fa-envelope"></i>
+          <%= f.label :email %><br />
+        </div>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <i class="fa-solid fa-lock"></i>
+          <%= f.label :password %><br />
+        </div>
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <i class="fa-solid fa-lock"></i>
+          <%= f.label :password_confirmation %><br />
+        </div>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <i class="fa-solid fa-user-tag"></i>
+          <%= f.label :role %><br />
+        </div>
+        <div class="role-options-wrapper">
+          <div class="role-options">
+            <%= f.radio_button :role, "user", checked: true %>
+            <%= f.label :role_user, t("role.user") %>
+          </div>
+          <div class="role-options">
+            <%= f.radio_button :role, "supervisor" %>
+            <%= f.label :role_supervisor, t("role.supervisor") %>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit t("pages.signup.heading") %>
+      </div>
+
+      <%= render "devise/shared/error_messages", resource: resource %>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

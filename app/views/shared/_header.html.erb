@@ -2,13 +2,21 @@
   <div class="logo">
     <p><%= t "title" %></p>
   </div>
+
   <div class="search-box">
     <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" name="" value="" placeholder="<%= t('placeholder.search') %>">
+    <input type="text" name="query" value="" placeholder="<%= t('placeholder.search') %>">
   </div>
+
   <div class="avatar-box">
-    <p><%= t "user.username" %></p>
-    <div class="avatar">
-    </div>
+    <% if user_signed_in? %>
+      <p><%= current_user.name || current_user.email %></p>
+      <div class="avatar">
+
+      </div>
+    <% else %>
+      <%= link_to t("devise.shared.links.sign_up"), new_user_registration_path, class: "auth-links" %>
+      <%= link_to t("devise.shared.links.log_in"), new_user_session_path, class: "auth-links" %>
+    <% end %>
   </div>
 </div>

@@ -1,9 +1,26 @@
 vi:
+  activerecord:
+    models:
+      user: "Người dùng"
+    attributes:
+      user:
+        name: "Họ và tên"
+        email: "Email"
+        password: "Mật khẩu"
+        password_confirmation: "Xác nhận mật khẩu"
+        role: "Vai trò"
+        remember_me: "Ghi nhớ tôi"
+  role:
+    user: "Người dùng"
+    supervisor: "Giám sát viên"
   pages:
     home:
       title: "TRANG CHỦ"
       heading: "Trang chủ"
       content: "Tìm tôi tại app/views/pages/home.html.erb"
+    signup:
+      title: "ĐĂNG KÝ"
+      heading: "Đăng ký"
   placeholder:
     search: "Tìm kiếm ..."
   user:

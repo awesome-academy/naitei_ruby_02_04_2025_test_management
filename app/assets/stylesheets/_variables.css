@@ -4,4 +4,7 @@
   --slate-gray-color: slategray;
   --black-color: black;
   --light-gray-color: lightgray;
+  --warning-color: #ff9800;
+  --error-color: #f44336;
+  --shadow-box: rgba(0, 0, 0, 0.15);
 }

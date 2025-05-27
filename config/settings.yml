@@ -1,0 +1,15 @@
+# config/settings.yml
+
+defaults: &defaults
+
+user:
+  name:
+    min_length: 2
+    max_length: 50
+
+
+development:
+  <<: *defaults
+
+production:
+  <<: *defaults
