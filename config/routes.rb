@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  #config/routes.rb
   scope "(:locale)", locale: /en|vi/ do
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
 

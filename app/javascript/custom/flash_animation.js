@@ -1,17 +1,17 @@
 document.addEventListener('turbo:render', function() {
-  const errorExplanation = document.getElementById('error_explanation');
+  const flashMes = document.querySelector('.flash-mes');
 
-  if (errorExplanation) {
+  if (flashMes) {
     const displayDuration = 3000;
     const fadeOutAnimationDuration = 500;
 
     setTimeout(() => {
-      if (errorExplanation) {
-        errorExplanation.classList.add('hiding');
+      if (flashMes) {
+        flashMes.classList.add('hiding');
 
         setTimeout(() => {
-          if (errorExplanation) {
-            errorExplanation.style.display = 'none';
+          if (flashMes) {
+            flashMes.style.display = 'none';
           }
         }, fadeOutAnimationDuration);
       }

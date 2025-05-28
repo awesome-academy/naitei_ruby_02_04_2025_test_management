@@ -21,6 +21,9 @@ vi:
     signup:
       title: "ĐĂNG KÝ"
       heading: "Đăng ký"
+    login:
+      title: "ĐĂNG NHẬP"
+      heading: "Đăng nhập"
   placeholder:
     search: "Tìm kiếm ..."
   user:
