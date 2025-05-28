@@ -11,6 +11,16 @@
   </head>
 
   <body class="devise-body">
+    <% if notice.present? %>
+      <div class="flash-mes notice">
+        <p><%= notice %></p>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <div class="flash-mes alert">
+        <p><%= alert %></p>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

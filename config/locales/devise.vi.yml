@@ -4,6 +4,7 @@ vi:
       links:
         log_in: "Đăng nhập"
         sign_up: "Đăng ký"
+        sign_out: "Đăng xuất"
         forgot_your_password: "Quên mật khẩu?"
         didnt_receive_confirmation: "Chưa nhận được hướng dẫn xác nhận?"
         didnt_receive_unlock: "Chưa nhận được hướng dẫn mở khóa?"

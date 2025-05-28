@@ -10,6 +10,9 @@ en:
     signup:
       title: "SIGN UP"
       heading: "Sign up"
+    login:
+      title: "LOGIN"
+      heading: "Login"
   placeholder:
     search: "Search ..."
   user:
