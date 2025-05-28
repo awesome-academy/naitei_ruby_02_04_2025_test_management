@@ -2,3 +2,4 @@
 import '@hotwired/turbo-rails'
 import 'controllers'
 import './custom/navbar'
+import './custom/error_animation'

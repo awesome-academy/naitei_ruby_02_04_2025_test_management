@@ -1,0 +1,141 @@
+@import 'variables';
+
+/* Layout */
+body.devise-body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Signup Page */
+.signup-page-wrapper {
+  width: 80%;
+  background-color: var(--white-color);
+  border-radius: 16px;
+  display: flex;
+  overflow: hidden;
+
+  .image {
+    flex: 1.5;
+
+    .signup-image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+      font-size: 32px;
+      font-weight: 800;
+    }
+
+    form {
+      width: 100%;
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .field {
+        width: 80%;
+        margin-bottom: 20px;
+
+        .field-label {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 8px;
+          color: var(--slate-gray-color);
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        input {
+          width: 100%;
+          height: 45px;
+          padding: 0 16px;
+          border: 1px solid var(--background-color);
+          border-radius: 10px;
+          outline: none;
+          font-size: 16px;
+        }
+
+        input:focus {
+          border-color: var(--slate-gray-color);
+        }
+
+        .role-options-wrapper {
+          display: flex;
+          justify-content: space-around;
+          width: 100%;
+          margin-top: 16px;
+
+          .role-options {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 8px;
+
+            label {
+              font-size: 16px;
+              color: var(--slate-gray-color);
+              cursor: pointer;
+
+              input {
+                margin-right: 8px;
+              }
+            }
+
+            input[type="radio"] {
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+      }
+
+      .actions {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        input[type="submit"] {
+          width: 80%;
+          height: 45px;
+          background-color: var(--slate-gray-color);
+          color: var(--white-color);
+          border: none;
+          border-radius: 10px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 300ms linear;
+
+          &:hover {
+            opacity: 80%;
+          }
+        }
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--slate-gray-color);
+      margin-top: 16px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

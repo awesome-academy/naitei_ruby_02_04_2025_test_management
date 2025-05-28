@@ -1,9 +1,15 @@
 en:
+  role:
+    user: "User"
+    supervisor: "Supervisor"
   pages:
     home:
       title: "HOME"
       heading: "Home"
       content: "Find me in app/views/pages/home.html.erb"
+    signup:
+      title: "SIGN UP"
+      heading: "Sign up"
   placeholder:
     search: "Search ..."
   user:
