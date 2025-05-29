@@ -94,6 +94,9 @@ body {
 }
 
 .navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   left: 32px;
   width: 280px;
   height: calc(100% - 148px);
@@ -112,6 +115,15 @@ body {
 
 .navbar {
   padding: 24px 16px;
+
+  .role {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--slate-gray-color);
+  }
+
   ul {
     li {
       width: 100%;

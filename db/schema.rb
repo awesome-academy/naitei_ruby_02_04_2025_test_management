@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_26_060555) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_28_062610) do
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.text "content", null: false
@@ -25,6 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_26_060555) do
     t.bigint "subject_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_pass", default: false, null: false
     t.index ["subject_id"], name: "index_enrolled_subjects_on_subject_id"
     t.index ["user_id", "subject_id"], name: "index_enrolled_subjects_on_user_id_and_subject_id", unique: true
     t.index ["user_id"], name: "index_enrolled_subjects_on_user_id"
@@ -110,7 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_26_060555) do
     t.string "unconfirmed_email"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true                                                                                                                                                                                                            
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "answers", "questions"

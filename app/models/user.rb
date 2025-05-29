@@ -4,7 +4,7 @@ class User < ApplicationRecord
     :role
   ].freeze
 
-  enum role: { user: "user", supervisor: "supervisor" }
+  enum role: {user: "user", supervisor: "supervisor"}
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
@@ -18,5 +18,5 @@ class User < ApplicationRecord
     minimum: Settings.user.name.min_length,
     maximum: Settings.user.name.max_length
   }
-  validates :role, presence: true, inclusion: { in: roles.keys }
+  validates :role, presence: true, inclusion: {in: roles.keys}
 end

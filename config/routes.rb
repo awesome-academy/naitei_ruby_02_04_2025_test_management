@@ -12,5 +12,7 @@ Rails.application.routes.draw do
       post "signin" => "devise/sessions#create"
       delete "signout" => "devise/sessions#destroy"
     end
+
+    resources :subjects
   end
 end
