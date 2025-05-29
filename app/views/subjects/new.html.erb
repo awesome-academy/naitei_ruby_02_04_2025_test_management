@@ -1,0 +1,45 @@
+<% provide :title, t(".web_title") %>
+
+<div class="new-subject-wrapper">
+  <h2><%= t ".title" %></h2>
+
+  <div class="main-content">
+    <%= form_for @subject do |f| %>
+      <div class="field">
+        <div class="field-label">
+          <i class="fa-solid fa-book"></i>
+          <%= f.label :name %><br />
+        </div>
+        <%= f.text_field :name, autofocus: true, autocomplete: "off" %>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <i class="fa-solid fa-book-open"></i>
+          <%= f.label :description %><br />
+        </div>
+        <%= f.text_area :description, autocomplete: "off" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit t(".create") %>
+      </div>
+
+      <%= render "devise/shared/error_messages", resource: @subject %>
+    <% end %>
+
+    <div class="preview">
+      <div class="preview-header">
+        <%= image_tag "subject_header.jpg", alt: "Header", class: "subject-header" %>
+      </div>
+      <div class="preview-content">
+        <h3 id="preview_name"></h3>
+        <p id="preview_description"></p>
+      </div>
+      <div class="delete">
+        <i class="fa-solid fa-trash"></i>
+        <p><%= t ".delete" %></p>
+      </div>
+    </div>
+  </div>
+</div>
