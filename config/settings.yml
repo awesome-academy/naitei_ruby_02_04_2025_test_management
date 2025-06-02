@@ -6,7 +6,12 @@ user:
   name:
     min_length: 2
     max_length: 50
-
+subject:
+  name:
+    min_length: 2
+    max_length: 100
+  description:
+    max_length: 1000
 
 development:
   <<: *defaults

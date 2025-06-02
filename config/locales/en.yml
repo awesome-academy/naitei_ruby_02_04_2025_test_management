@@ -17,6 +17,39 @@ en:
     search: "Search ..."
   user:
     username: "Username"
+  subjects:
+    index:
+      title: "Subjects List"
+      new: "New Subject"
+      search_placeholder: "Search by name..."
+      search: "Search"
+    new:
+      title: "New Subject"
+      back: "Back"
+      web_title: "CREATE SUBJECT"
+      create: "Create"
+      delete: "Delete"
+    edit:
+      title: "Edit Subject"
+      back: "Back"
+    show:
+      title: "Subject Details"
+      back: "Back"
+      edit: "Edit"
+      delete: "Delete"
+      confirm: "Are you sure?"
+    create:
+      success: "Subject was successfully created."
+    update:
+      success: "Subject was successfully updated."
+    destroy:
+      success: "Subject was successfully deleted."
+      failed: "Failed to delete subject."
+      has_enrolled_users: "Cannot delete this subject because users are enrolled in it."
+      has_questions: "Cannot delete this subject because it has associated questions."
+      has_exams: "Cannot delete this subject because it has associated exams."
+    not_found: "Subject not found."
+    not_authorized: "You are not authorized to perform this action."
   navbar:
     home: "HOME"
     subject: "SUBJECT"

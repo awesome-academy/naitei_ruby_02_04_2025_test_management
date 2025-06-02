@@ -7,7 +7,7 @@
       <% end %>
     </li>
     <li>
-      <%= link_to "#" do %>
+      <%= link_to subjects_path do %>
         <i class="fa-solid fa-book-open"></i>
         <p><%= t "navbar.subject" %></p>
       <% end %>
@@ -25,4 +25,16 @@
       <% end %>
     </li>
   </ul>
+
+  <% if user_signed_in? %>
+    <div class="role">
+      <% if current_user.user? %>
+        <i class="fa-solid fa-user"></i>
+        <p><%= t "role.user" %></p>
+      <% elsif current_user.supervisor? %>
+        <i class="fa-solid fa-user-tie"></i>
+        <p><%= t "role.supervisor" %></p>
+      <% end %>
+    </div>
+  <% end %>
 </div>
