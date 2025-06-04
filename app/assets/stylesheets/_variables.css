@@ -8,4 +8,8 @@
   --error-color: #f44336;
   --shadow-box: rgba(0, 0, 0, 0.15);
   --success-color: #4caf50;
+  --link-color: #007bff;
+  --link-hover-color: #0056b3;
+  --primary-color: #007bff;
+  --disabled-text-color: #aaa;
 }

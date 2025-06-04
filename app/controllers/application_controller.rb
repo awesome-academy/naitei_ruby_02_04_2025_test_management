@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
   layout :layout_by_resource
   protect_from_forgery with: :exception
 

@@ -4,7 +4,7 @@ class SubjectsController < ApplicationController
   before_action :set_subject, except: %i(index new create)
 
   def index
-    @subjects = Subject.latest
+    @pagy, @subjects = pagy Subject.latest.search(params[:query])
   end
 
   def show; end
