@@ -1,0 +1,21 @@
+<div class="subject-card">
+  <div class="subject-card-header">
+    <%= image_tag "subject_header.jpg", alt: subject.name, class: "subject-card-header-img" %>
+  </div>
+  <div class="subject-card-content">
+    <h3 id="subject-card-name-<%= subject.id %>"><%= link_to subject.name, subject_path(id: subject.id) %></h3>
+    <p id="subject-card-description-<%= subject.id %>"><%= truncate(subject.description, length: 100) %></p>
+  </div>
+  <div class="subject-card-footer">
+    <% if current_user&.supervisor? %>
+      <div class="delete">
+        <%= link_to subject_path(id: subject.id), data: { turbo_method: :delete } do %>
+          <i class="fa-solid fa-trash"></i>
+          <span><%= t "subjects.delete_text" %></span>
+        <% end %>
+      </div>
+    <% else %>
+      <%= link_to t("subjects.view_details_text", default: "View Details"), subject_path(id: subject.id) %>
+    <% end %>
+  </div>
+</div>

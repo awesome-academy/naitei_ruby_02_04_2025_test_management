@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_28_062610) do
+ActiveRecord::Schema[7.0].define(version: 2025_06_04_064141) do
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.text "content", null: false
@@ -18,17 +18,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_28_062610) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
-  end
-
-  create_table "enrolled_subjects", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "subject_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "is_pass", default: false, null: false
-    t.index ["subject_id"], name: "index_enrolled_subjects_on_subject_id"
-    t.index ["user_id", "subject_id"], name: "index_enrolled_subjects_on_user_id_and_subject_id", unique: true
-    t.index ["user_id"], name: "index_enrolled_subjects_on_user_id"
   end
 
   create_table "exam_questions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -115,8 +104,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_28_062610) do
   end
 
   add_foreign_key "answers", "questions"
-  add_foreign_key "enrolled_subjects", "subjects"
-  add_foreign_key "enrolled_subjects", "users"
   add_foreign_key "exam_questions", "exams"
   add_foreign_key "exam_questions", "questions"
   add_foreign_key "exam_result_answers", "answers"

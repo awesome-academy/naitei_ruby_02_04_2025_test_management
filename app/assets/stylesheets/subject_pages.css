@@ -156,3 +156,31 @@
     }
   }
 }
+
+.subject-list-wrapper {
+  padding: 24px;
+  width: 100%;
+  display: flex;
+
+  .subject-list-header {
+    width: 75%;
+    .subjects-list-items {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    nav {
+      margin-top: 16px;
+    }
+  }
+
+  .pass-rate {
+    width: 40%;
+    height: 500px;
+    border: 1px solid var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px var(--shadow-box);
+  }
+}

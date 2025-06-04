@@ -5,7 +5,12 @@
 
   <div class="search-box">
     <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" name="query" value="" placeholder="<%= t('placeholder.search') %>">
+    <%= form_with(url: subjects_path, method: :get, local: true, data: { turbo_frame: "_top" }) do |form| %>
+      <%= form.text_field :query,
+                          value: params[:query],
+                          placeholder: t('placeholder.search'),
+                          "aria-label": t('placeholder.search') %>
+    <% end %>
   </div>
 
   <div class="avatar-box">
