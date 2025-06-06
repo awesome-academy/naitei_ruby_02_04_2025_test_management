@@ -1,0 +1,19 @@
+<div class="nested-fields answer-item">
+  <%= f.hidden_field :id if f.object.persisted? %>
+
+  <div class="form-field">
+    <%= f.label :content, t("activerecord.attributes.answer.content"), class: "form-label sr-only" %>
+    <%= f.text_field :content, class: "input-text", placeholder: t("activerecord.attributes.answer.content") %>
+  </div>
+
+  <div class="checkbox-field">
+    <%= f.hidden_field :is_correct, value: '0' %>
+    <%= f.check_box :is_correct, class: "checkbox-input" %>
+    <%= f.label :is_correct, t("activerecord.attributes.answer.is_correct"), class: "checkbox-label" %>
+  </div>
+
+  <div class="remove-link-wrapper">
+    <%= f.hidden_field :_destroy %>
+    <%= link_to_remove_association t("actions.remove_answer"), f, class: "button button-danger button-small" %>
+  </div>
+</div>

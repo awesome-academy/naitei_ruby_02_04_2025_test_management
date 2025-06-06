@@ -1,0 +1,34 @@
+<div class="page-header">
+    <h2 class="section-title"><%= t("questions.index.title_short") %> (<%= @subject.questions.count %>)</h2>
+    <div class="page-actions">
+        <%= link_to t("questions.index.add_new_question"), new_supervisor_subject_question_path(subject_id: @subject.id), class: "button button-success" %>
+    </div>
+  </div>
+
+  <div id="questions_list_for_subject_<%= @subject.id %>" class="questions-container">
+    <% if @subject.questions.any? %>
+      <% @subject.questions.order(created_at: :desc).each do |question_item| %>
+        <div class="content-card question-item" id="<%= dom_id(question_item) %>">
+          <div class="card-section">
+            <h3 class="item-title">
+              <%= link_to question_item.content, edit_supervisor_subject_question_path(@subject, question_item) %>
+            </h3>
+            <p class="item-meta">
+              <strong><%= t("activerecord.attributes.question.question_type") %>:</strong> <%= t("activerecord.attributes.question.question_types.#{question_item.question_type}", default: question_item.question_type.titleize) %><br>
+              <strong><%= t("questions.common.answers_count") %>:</strong> <%= question_item.answers.count %>
+            </p>
+            <div class="item-actions">
+              <%# if current_user&.supervisor? %>
+                <%= link_to t("actions.edit"), edit_supervisor_subject_question_path(locale: I18n.locale, subject_id: @subject.id, id: question_item.id), class: "button button-small button-outline-warning" %>
+                <%= button_to t("actions.delete"), supervisor_subject_question_path(locale: I18n.locale, subject_id: @subject.id, id: question_item.id),
+                              method: :delete,
+                              class: "button button-small button-outline-danger" %>
+              <%# end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="empty-state-message"><%= t("questions.index.no_questions") %></p>
+    <% end %>
+  </div>
