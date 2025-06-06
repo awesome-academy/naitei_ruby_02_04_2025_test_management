@@ -12,4 +12,8 @@
   --link-hover-color: #0056b3;
   --primary-color: #007bff;
   --disabled-text-color: #aaa;
+  --secondary-color: #6c757d;
+  --text-color: #212529;
+  --border-color: #dee2e6;
+  --button-text-color: var(--white-color);
 }

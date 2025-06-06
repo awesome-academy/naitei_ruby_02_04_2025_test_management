@@ -1,0 +1,17 @@
+<% provide :title, t(".title") %>
+
+<div class="subject-list-wrapper">
+  <div class="subject-list-header">
+    <div class="subjects-list-items">
+      <% if @subjects.any? %>
+        <%= render @subjects %>
+      <% else %>
+        <p><%= t(".no_subjects_found") %></p>
+      <% end %>
+    </div>
+    <%== pagy_nav @pagy %>
+  </div>
+
+  <div class="pass-rate">
+  </div>
+</div>

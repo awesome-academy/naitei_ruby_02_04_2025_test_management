@@ -86,6 +86,7 @@ GEM
       xpath (~> 3.2)
     childprocess (5.1.0)
       logger (~> 1.5)
+    cocoon (1.2.15)
     concurrent-ruby (1.2.2)
     config (5.5.2)
       deep_merge (~> 1.2, >= 1.2.1)
@@ -308,6 +309,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   capybara
+  cocoon
   config
   debug
   devise

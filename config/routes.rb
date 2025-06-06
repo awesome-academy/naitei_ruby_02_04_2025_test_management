@@ -13,6 +13,12 @@ Rails.application.routes.draw do
       delete "signout" => "devise/sessions#destroy"
     end
 
-    resources :subjects
+    resources :subjects, only: %i(index show)
+
+    namespace :supervisor do
+      resources :subjects do
+        resources :questions
+      end
+    end
   end
 end

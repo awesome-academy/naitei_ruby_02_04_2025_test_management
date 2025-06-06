@@ -1,4 +1,15 @@
 en:
+  activerecord:
+  errors:
+    models:
+      question:
+        attributes:
+          answers:
+            single_choice_needs_min_answers: "must have at least 2 answer options."
+            single_choice_needs_one_correct_answer: "must have exactly one correct answer."
+            single_choice_too_many_correct_answers: "can only have one correct answer."
+            multiple_choice_needs_min_answers: "must have at least 2 answer options."
+            multiple_choice_needs_one_correct_answer: "must have at least one correct answer."
   role:
     user: "User"
     supervisor: "Supervisor"
@@ -13,12 +24,29 @@ en:
     login:
       title: "LOGIN"
       heading: "Login"
-  placeholder:
+  placeholders:
     search: "Search ..."
+    answer:
+      content: "Answer content..."
+  actions:
+    remove_answer: "Remove Answer"
+    add_answer: "Add Answer"
+    create_question: "Create Question"
+    update_question: "Update Question"
+    cancel: "Cancel"
+    edit: "Edit"
+    delete: "Delete"
+    back_to_subject_questions: "Back to Questions for %{subject_name}"
+    show_question: "View this Question"
+  messages:
+    confirm_delete_question: "Are you sure you want to delete this question and all its answers?"
   user:
     username: "Username"
+  supervisor:
+    not_authorized: "You are not authorized to perform this action."
   subjects:
     index:
+      title_short: "Subjects List"
       title: "Subjects List"
       new: "New Subject"
       search_placeholder: "Search by name..."
@@ -60,9 +88,46 @@ en:
     not_found: "Subject not found."
     not_authorized: "You are not authorized to perform this action."
     delete_text: "Delete"
+  questions:
+    create:
+      success: "Question was successfully created."
+      failure: "Failed to create question. Please check the errors below."
+    update:
+      success: "Question was successfully updated."
+      failure: "Failed to update question. Please check the errors below."
+      question_in_use_created_new: "This question is already in use. A new question has been created with the same content."
+      question_in_use_create_new_failed: "Failed to create a new question with the same content."
+    destroy:
+      success: "Question was successfully deleted."
+      failure: "Failed to delete question."
+      has_answers: "This question cannot be deleted because it has associated answers."
+    set_subject:
+      subject_not_found: "Subject not found."
+    set_question:
+      not_found: "Question not found for this subject."
+    index:
+      title_short: "Questions List"
+      title: "Questions for %{subject_name}"
+      no_questions: "No questions found for this subject yet."
+      add_new_question: "Add New Question"
+    new:
+      title: "New Question for %{subject_name}"
+      heading: "Create a New Question for %{subject_name}"
+    edit:
+      title: "Edit Question"
+      heading: "Editing Question"
+    form:
+      answers_heading: "Answer Options:"
+      add_answer_link: "Add Answer Option"
+      save_button_new: "Create Question"
+      save_button_edit: "Update Question"
+    common:
+      answers_count: "Number of Answers"
   navbar:
     home: "HOME"
     subject: "SUBJECT"
     exam: "EXAM"
     result: "RESULT"
+  common:
+    created_at: "Created at"
   title: "EXAMO"

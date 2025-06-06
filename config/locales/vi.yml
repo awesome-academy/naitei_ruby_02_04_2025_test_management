@@ -3,6 +3,8 @@ vi:
     models:
       user: "Người dùng"
       subject: "Môn học"
+      question: "Câu hỏi"
+      answer: "Phương án trả lời"
     attributes:
       user:
         name: "Họ và tên"
@@ -14,6 +16,27 @@ vi:
       subject:
         name: "Tên môn học"
         description: "Mô tả"
+      question:
+        content: "Nội dung"
+        question_type: "Loại câu hỏi"
+        answers: "Các phương án trả lời"
+        subject: "Môn học"
+        question_types:
+          single_choice: "Trắc nghiệm - Một lựa chọn"
+          multiple_choice: "Trắc nghiệm - Nhiều lựa chọn"
+      answer:
+        content: "Nội dung phương án"
+        is_correct: "Là đáp án đúng?"
+    errors:
+      models:
+        question:
+          attributes:
+            answers:
+              single_choice_needs_min_answers: "phải có ít nhất 2 phương án."
+              single_choice_needs_one_correct_answer: "phải có một phương án đúng."
+              single_choice_too_many_correct_answers: "chỉ được có một phương án đúng."
+              multiple_choice_needs_min_answers: "phải có ít nhất 2 phương án."
+              multiple_choice_needs_one_correct_answer: "phải có ít nhất một phương án đúng."
   role:
     user: "Người dùng"
     supervisor: "Giám sát viên"
@@ -28,12 +51,29 @@ vi:
     login:
       title: "ĐĂNG NHẬP"
       heading: "Đăng nhập"
-  placeholder:
+  placeholders:
     search: "Tìm kiếm ..."
+    answer:
+      content: "Nội dung phương án..."
+  actions:
+    remove_answer: "Xóa phương án"
+    add_answer: "Thêm phương án"
+    create_question: "Tạo câu hỏi"
+    update_question: "Cập nhật câu hỏi"
+    cancel: "Hủy"
+    edit: "Sửa"
+    delete: "Xóa"
+    back_to_subject_questions: "Quay lại câu hỏi của %{subject_name}"
+    show_question: "Xem câu hỏi này"
+  messages:
+    confirm_delete_question: "Bạn chắc chắn muốn xóa câu hỏi này và tất cả các câu trả lời của nó?"
   user:
     username: "Tên người dùng"
+  supervisor:
+    not_authorized: "Bạn không có quyền thực hiện hành động này."
   subjects:
     index:
+      title_short: "Danh sách môn học"
       title: "Danh sách môn học"
       new: "Thêm môn học"
       search_placeholder: "Tìm kiếm theo tên..."
@@ -75,9 +115,46 @@ vi:
     not_found: "Không tìm thấy môn học."
     not_authorized: "Bạn không có quyền thực hiện hành động này."
     delete_text: "Xóa"
+  questions:
+    create:
+      success: "Câu hỏi đã được tạo thành công."
+      failure: "Tạo câu hỏi thất bại. Vui lòng kiểm tra lại các lỗi được liệt kê."
+    update:
+      success: "Câu hỏi đã được cập nhật thành công."
+      failure: "Cập nhật câu hỏi thất bại. Vui lòng kiểm tra lại các lỗi được liệt kê."
+      question_in_use_created_new: "Câu hỏi này đã được sử dụng. Một câu hỏi mới đã được tạo với nội dung tương tự."
+      question_in_use_create_new_failed: "Không thể tạo câu hỏi mới với nội dung tương tự."
+    destroy:
+      success: "Câu hỏi đã được xóa thành công."
+      failure: "Xóa câu hỏi thất bại."
+      has_answers: "Không thể xóa câu hỏi này vì vẫn còn các phương án trả lời liên quan."
+    set_subject:
+      subject_not_found: "Không tìm thấy môn học."
+    set_question:
+      not_found: "Không tìm thấy câu hỏi trong môn học này."
+    index:
+      title_short: "Danh sách câu hỏi"
+      title: "Danh sách câu hỏi cho môn: %{subject_name}"
+      no_questions: "Chưa có câu hỏi nào cho môn học này."
+      add_new_question: "Thêm câu hỏi mới"
+    new:
+      title: "Câu hỏi mới cho môn: %{subject_name}"
+      heading: "Tạo câu hỏi mới cho: %{subject_name}"
+    edit:
+      title: "Chỉnh sửa câu hỏi"
+      heading: "Chỉnh sửa câu hỏi"
+    form:
+      answers_heading: "Các phương án trả lời:"
+      add_answer_link: "Thêm phương án trả lời"
+      save_button_new: "Tạo câu hỏi"
+      save_button_edit: "Cập nhật câu hỏi"
+    common:
+      answers_count: "Số phương án"
   navbar:
     home: "TRANG CHỦ"
     subject: "MÔN HỌC"
     exam: "BÀI KIỂM TRA"
     result: "KẾT QUẢ"
+  common:
+    created_at: "Tạo lúc"
   title: "EXAMO"

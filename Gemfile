@@ -53,6 +53,8 @@ gem "pagy"
 # Use Sass to process CSS
 gem "sassc-rails"
 
+gem "cocoon"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html]
 # gem "image_processing", "~> 1.2"
 

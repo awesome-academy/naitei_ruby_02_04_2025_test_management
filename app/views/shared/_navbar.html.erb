@@ -7,10 +7,17 @@
       <% end %>
     </li>
     <li>
+     <% if current_user&.supervisor? %>
+      <%= link_to supervisor_subjects_path do %>
+        <i class="fa-solid fa-book-open"></i>
+        <p><%= t "navbar.subject" %></p>
+      <% end %>
+    <% else %>
       <%= link_to subjects_path do %>
         <i class="fa-solid fa-book-open"></i>
         <p><%= t "navbar.subject" %></p>
       <% end %>
+    <% end %>
     </li>
     <li>
       <%= link_to "#" do %>
