@@ -5,6 +5,7 @@ vi:
       subject: "Môn học"
       question: "Câu hỏi"
       answer: "Phương án trả lời"
+      exam: "Cấu hình Bài thi"
     attributes:
       user:
         name: "Họ và tên"
@@ -27,6 +28,16 @@ vi:
       answer:
         content: "Nội dung phương án"
         is_correct: "Là đáp án đúng?"
+      exam:
+        name: "Tên cấu hình"
+        description: "Mô tả"
+        number_of_questions_to_take: "Số câu hỏi mỗi lượt"
+        duration_minutes: "Thời gian làm bài (phút)"
+        retries_allowed: "Số lần làm lại"
+        pass_ratio: "Tỉ lệ đạt (%)"
+        open_at: "Thời gian mở đề"
+        close_at: "Thời gian đóng đề"
+        subject: "Môn học"
     errors:
       models:
         question:
@@ -55,6 +66,9 @@ vi:
     search: "Tìm kiếm ..."
     answer:
       content: "Nội dung phương án..."
+    exam:
+      duration_minutes: "Ví dụ: 60 (phút)"
+      pass_ratio: "Ví dụ: 50 (cho 50%)"
   actions:
     remove_answer: "Xóa phương án"
     add_answer: "Thêm phương án"
@@ -65,91 +79,117 @@ vi:
     delete: "Xóa"
     back_to_subject_questions: "Quay lại câu hỏi của %{subject_name}"
     show_question: "Xem câu hỏi này"
+    create_exam: "Tạo cấu hình bài thi"
+    update_exam: "Cập nhật cấu hình"
+    back_to_subject: "Quay lại môn học %{subject_name}"
   messages:
     confirm_delete_question: "Bạn chắc chắn muốn xóa câu hỏi này và tất cả các câu trả lời của nó?"
+    confirm_delete_exam_template: "Bạn chắc chắn muốn xóa cấu hình bài thi này? Các lượt làm bài dựa trên cấu hình này sẽ không bị ảnh hưởng trực tiếp nhưng không thể tạo lượt làm bài mới từ cấu hình này."
   user:
     username: "Tên người dùng"
   supervisor:
     not_authorized: "Bạn không có quyền thực hiện hành động này."
-  subjects:
-    index:
-      title_short: "Danh sách môn học"
-      title: "Danh sách môn học"
-      new: "Thêm môn học"
-      search_placeholder: "Tìm kiếm theo tên..."
-      search: "Tìm kiếm"
-      no_subjects_found: "Hiện tại không có môn học nào."
-    new:
-      title: "Thêm môn học mới"
-      back: "Quay lại"
-      web_title: "TẠO MÔN HỌC"
-      create: "Tạo"
-      delete: "Xóa"
-    edit:
-      title: "Chỉnh sửa môn học"
-      back: "Quay lại"
-    show:
-      title: "Chi tiết môn học"
-      back: "Quay lại"
-      edit: "Chỉnh sửa"
-      delete: "Xóa"
-      confirm: "Bạn có chắc chắn?"
-    create:
-      success: "Tạo môn học thành công."
-    update:
-      success: "Cập nhật môn học thành công."
-    destroy:
-      success: "Xóa môn học thành công."
-      failed: "Không thể xóa môn học."
-      has_enrolled_users: "Không thể xóa môn học này vì có người dùng đã đăng ký."
-      has_questions: "Không thể xóa môn học này vì có các câu hỏi liên quan."
-      has_exams: "Không thể xóa môn học này vì có các bài kiểm tra liên quan."
-    enroll:
-      already_enrolled: "Bạn đã đăng ký môn học này."
-      enroll_success: "Đăng ký môn học thành công!"
-      enroll_failed: "Đăng ký môn học không thành công. Vui lòng thử lại."
-    enroll_button_text: "Tham gia môn học"
-    learning_text: "Học"
-    login_to_enroll_text: "Vui lòng đăng nhập để tham gia."
-    view_details_text: "Xem chi tiết"
-    not_found: "Không tìm thấy môn học."
-    not_authorized: "Bạn không có quyền thực hiện hành động này."
-    delete_text: "Xóa"
-  questions:
-    create:
-      success: "Câu hỏi đã được tạo thành công."
-      failure: "Tạo câu hỏi thất bại. Vui lòng kiểm tra lại các lỗi được liệt kê."
-    update:
-      success: "Câu hỏi đã được cập nhật thành công."
-      failure: "Cập nhật câu hỏi thất bại. Vui lòng kiểm tra lại các lỗi được liệt kê."
-      question_in_use_created_new: "Câu hỏi này đã được sử dụng. Một câu hỏi mới đã được tạo với nội dung tương tự."
-      question_in_use_create_new_failed: "Không thể tạo câu hỏi mới với nội dung tương tự."
-    destroy:
-      success: "Câu hỏi đã được xóa thành công."
-      failure: "Xóa câu hỏi thất bại."
-      has_answers: "Không thể xóa câu hỏi này vì vẫn còn các phương án trả lời liên quan."
-    set_subject:
-      subject_not_found: "Không tìm thấy môn học."
-    set_question:
-      not_found: "Không tìm thấy câu hỏi trong môn học này."
-    index:
-      title_short: "Danh sách câu hỏi"
-      title: "Danh sách câu hỏi cho môn: %{subject_name}"
-      no_questions: "Chưa có câu hỏi nào cho môn học này."
-      add_new_question: "Thêm câu hỏi mới"
-    new:
-      title: "Câu hỏi mới cho môn: %{subject_name}"
-      heading: "Tạo câu hỏi mới cho: %{subject_name}"
-    edit:
-      title: "Chỉnh sửa câu hỏi"
-      heading: "Chỉnh sửa câu hỏi"
-    form:
-      answers_heading: "Các phương án trả lời:"
-      add_answer_link: "Thêm phương án trả lời"
-      save_button_new: "Tạo câu hỏi"
-      save_button_edit: "Cập nhật câu hỏi"
-    common:
-      answers_count: "Số phương án"
+    exams:
+      index:
+        title_short: "Các Cấu hình Bài Thi"
+        add_new_exam: "Tạo Cấu hình Bài Thi mới"
+        no_exams_found_for_subject: "Chưa có cấu hình bài kiểm tra nào cho môn học này."
+      form:
+        retries_allowed_hint: "Nhập 0 nếu không giới hạn số lần làm lại (hoặc logic này cần được xử lý riêng)."
+        pass_ratio_hint: "Tỉ lệ % câu đúng để qua bài."
+        open_at_label: "Thời gian mở đề (Tùy chọn)"
+        close_at_label: "Thời gian đóng đề (Tùy chọn)"
+      create:
+        success: "Cấu hình bài thi đã được tạo thành công."
+        failure: "Tạo cấu hình bài thi thất bại."
+      update:
+        success: "Cấu hình bài thi đã được cập nhật thành công."
+        failure: "Cập nhật cấu hình bài thi thất bại."
+        success_limited_update: "Cấu hình bài thi đã được cập nhật thành công với các thay đổi hạn chế."
+      destroy:
+        success: "Cấu hình bài thi đã được xóa."
+        failure: "Xóa cấu hình bài thi thất bại."
+        has_user_exams: "Không thể xóa cấu hình này vì đã có người dùng làm bài thi dựa trên nó."
+      not_found: "Cấu hình bài thi không tồn tại."
+    subjects:
+      index:
+        title_short: "Danh sách môn học"
+        title: "Danh sách môn học"
+        new: "Thêm môn học"
+        search_placeholder: "Tìm kiếm theo tên..."
+        search: "Tìm kiếm"
+        no_subjects_found: "Hiện tại không có môn học nào."
+      new:
+        title: "Thêm môn học mới"
+        back: "Quay lại"
+        web_title: "TẠO MÔN HỌC"
+        create: "Tạo"
+        delete: "Xóa"
+      edit:
+        title: "Chỉnh sửa môn học"
+        back: "Quay lại"
+      show:
+        title: "Chi tiết môn học"
+        back: "Quay lại"
+        edit: "Chỉnh sửa"
+        delete: "Xóa"
+        confirm: "Bạn có chắc chắn?"
+      create:
+        success: "Tạo môn học thành công."
+      update:
+        success: "Cập nhật môn học thành công."
+      destroy:
+        success: "Xóa môn học thành công."
+        failed: "Không thể xóa môn học."
+        has_enrolled_users: "Không thể xóa môn học này vì có người dùng đã đăng ký."
+        has_questions: "Không thể xóa môn học này vì có các câu hỏi liên quan."
+        has_exams: "Không thể xóa môn học này vì có các bài kiểm tra liên quan."
+      enroll:
+        already_enrolled: "Bạn đã đăng ký môn học này."
+        enroll_success: "Đăng ký môn học thành công!"
+        enroll_failed: "Đăng ký môn học không thành công. Vui lòng thử lại."
+      enroll_button_text: "Tham gia môn học"
+      learning_text: "Học"
+      login_to_enroll_text: "Vui lòng đăng nhập để tham gia."
+      view_details_text: "Xem chi tiết"
+      not_found: "Không tìm thấy môn học."
+      not_authorized: "Bạn không có quyền thực hiện hành động này."
+      delete_text: "Xóa"
+    questions:
+      create:
+        success: "Câu hỏi đã được tạo thành công."
+        failure: "Tạo câu hỏi thất bại. Vui lòng kiểm tra lại các lỗi được liệt kê."
+      update:
+        success: "Câu hỏi đã được cập nhật thành công."
+        failure: "Cập nhật câu hỏi thất bại. Vui lòng kiểm tra lại các lỗi được liệt kê."
+        question_in_use_created_new: "Câu hỏi này đã được sử dụng. Một câu hỏi mới đã được tạo với nội dung tương tự."
+        question_in_use_create_new_failed: "Không thể tạo câu hỏi mới với nội dung tương tự."
+      destroy:
+        success: "Câu hỏi đã được xóa thành công."
+        failure: "Xóa câu hỏi thất bại."
+        has_answers: "Không thể xóa câu hỏi này vì vẫn còn các phương án trả lời liên quan."
+      set_subject:
+        subject_not_found: "Không tìm thấy môn học."
+      set_question:
+        not_found: "Không tìm thấy câu hỏi trong môn học này."
+      index:
+        title_short: "Danh sách câu hỏi"
+        title: "Danh sách câu hỏi cho môn: %{subject_name}"
+        no_questions: "Chưa có câu hỏi nào cho môn học này."
+        add_new_question: "Thêm câu hỏi mới"
+      new:
+        title: "Câu hỏi mới cho môn: %{subject_name}"
+        heading: "Tạo câu hỏi mới cho: %{subject_name}"
+      edit:
+        title: "Chỉnh sửa câu hỏi"
+        heading: "Chỉnh sửa câu hỏi"
+      form:
+        answers_heading: "Các phương án trả lời:"
+        add_answer_link: "Thêm phương án trả lời"
+        save_button_new: "Tạo câu hỏi"
+        save_button_edit: "Cập nhật câu hỏi"
+      common:
+        answers_count: "Số phương án"
   navbar:
     home: "TRANG CHỦ"
     subject: "MÔN HỌC"
@@ -157,4 +197,11 @@ vi:
     result: "KẾT QUẢ"
   common:
     created_at: "Tạo lúc"
+    not_available_short: "N/A"
+    time_units:
+      minutes: "phút"
+    questions_unit: "câu"
+  errors:
+    messages:
+      exam_open_close_dates: "Thời gian mở và đóng đề không hợp lệ. Vui lòng kiểm tra lại."
   title: "EXAMO"

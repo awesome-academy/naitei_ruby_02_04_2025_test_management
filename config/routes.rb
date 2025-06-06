@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
     namespace :supervisor do
       resources :subjects do
+        resources :exams
         resources :questions
       end
     end
