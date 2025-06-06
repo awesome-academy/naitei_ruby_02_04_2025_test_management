@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_04_064141) do
+ActiveRecord::Schema[7.0].define(version: 2025_06_06_080134) do
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.text "content", null: false
@@ -18,40 +18,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_04_064141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
-  end
-
-  create_table "exam_questions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "exam_id", null: false
-    t.bigint "question_id", null: false
-    t.integer "display_order"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["exam_id", "question_id"], name: "index_exam_questions_on_exam_id_and_question_id", unique: true
-    t.index ["exam_id"], name: "index_exam_questions_on_exam_id"
-    t.index ["question_id"], name: "index_exam_questions_on_question_id"
-  end
-
-  create_table "exam_result_answers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "exam_question_id", null: false
-    t.bigint "exam_result_id", null: false
-    t.bigint "answer_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["answer_id"], name: "index_exam_result_answers_on_answer_id"
-    t.index ["exam_question_id"], name: "index_exam_result_answers_on_exam_question_id"
-    t.index ["exam_result_id"], name: "index_exam_result_answers_on_exam_result_id"
-  end
-
-  create_table "exam_results", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.bigint "exam_id", null: false
-    t.bigint "user_id", null: false
-    t.integer "score", default: 0
-    t.string "status", default: "pending", null: false
-    t.integer "attempt", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["exam_id"], name: "index_exam_results_on_exam_id"
-    t.index ["user_id"], name: "index_exam_results_on_user_id"
   end
 
   create_table "exams", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -64,6 +30,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_04_064141) do
     t.integer "pass_ratio", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
+    t.integer "number_of_questions_to_take", default: 10, null: false
     t.index ["subject_id"], name: "index_exams_on_subject_id"
   end
 
@@ -82,6 +50,43 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_04_064141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_subjects_on_name", unique: true
+  end
+
+  create_table "user_exam_answers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "user_exam_question_id", null: false
+    t.bigint "answer_id", null: false
+    t.text "content_text"
+    t.boolean "is_correct_at_submission"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_user_exam_answers_on_answer_id"
+    t.index ["user_exam_question_id"], name: "index_user_exam_answers_on_user_exam_question_id"
+  end
+
+  create_table "user_exam_questions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "user_exam_id", null: false
+    t.bigint "question_id", null: false
+    t.integer "display_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_user_exam_questions_on_question_id"
+    t.index ["user_exam_id", "question_id"], name: "index_user_exam_questions_on_exam_and_question", unique: true
+    t.index ["user_exam_id"], name: "index_user_exam_questions_on_user_exam_id"
+  end
+
+  create_table "user_exams", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "exam_id", null: false
+    t.string "status", default: "pending", null: false
+    t.integer "score", default: 0
+    t.integer "attempt_number", default: 1, null: false
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_user_exams_on_exam_id"
+    t.index ["user_id", "exam_id", "attempt_number"], name: "index_user_exams_on_user_exam_attempt", unique: true
+    t.index ["user_id"], name: "index_user_exams_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -104,13 +109,12 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_04_064141) do
   end
 
   add_foreign_key "answers", "questions"
-  add_foreign_key "exam_questions", "exams"
-  add_foreign_key "exam_questions", "questions"
-  add_foreign_key "exam_result_answers", "answers"
-  add_foreign_key "exam_result_answers", "exam_questions"
-  add_foreign_key "exam_result_answers", "exam_results"
-  add_foreign_key "exam_results", "exams"
-  add_foreign_key "exam_results", "users"
   add_foreign_key "exams", "subjects"
   add_foreign_key "questions", "subjects"
+  add_foreign_key "user_exam_answers", "answers"
+  add_foreign_key "user_exam_answers", "user_exam_questions"
+  add_foreign_key "user_exam_questions", "questions"
+  add_foreign_key "user_exam_questions", "user_exams"
+  add_foreign_key "user_exams", "exams"
+  add_foreign_key "user_exams", "users"
 end

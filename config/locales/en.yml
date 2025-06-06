@@ -28,6 +28,9 @@ en:
     search: "Search ..."
     answer:
       content: "Answer content..."
+    exam:
+      duration_minutes: "Example: 60 (minutes)"
+      pass_ratio: "Example: 50 (for 50%)"
   actions:
     remove_answer: "Remove Answer"
     add_answer: "Add Answer"
@@ -38,12 +41,38 @@ en:
     delete: "Delete"
     back_to_subject_questions: "Back to Questions for %{subject_name}"
     show_question: "View this Question"
+    create_exam: "Create Exam Template"
+    update_exam: "Update Exam Template"
+    back_to_subject: "Back to %{subject_name}"
   messages:
     confirm_delete_question: "Are you sure you want to delete this question and all its answers?"
+    confirm_delete_exam_template: "Are you sure you want to delete this exam template? This action cannot be undone."
   user:
     username: "Username"
   supervisor:
     not_authorized: "You are not authorized to perform this action."
+  exams:
+    index:
+      title_short: "Exam Templates"
+      add_new_exam: "New Exam Template"
+      no_exams_found_for_subject: "No exam templates found for this subject yet."
+    form:
+      retries_allowed_hint: "Enter 0 for unlimited retries (or handle this logic separately)."
+      pass_ratio_hint: "Passing percentage required."
+      open_at_label: "Opening Time (Optional)"
+      close_at_label: "Closing Time (Optional)"
+    create:
+      success: "Exam template created successfully."
+      failure: "Failed to create exam template."
+    update:
+      success: "Exam template updated successfully."
+      failure: "Failed to update exam template."
+      success_limited_update: "Exam template updated successfully with limited changes."
+    destroy:
+      success: "Exam template deleted successfully."
+      failure: "Failed to delete exam template."
+      has_user_exams: "Cannot delete this template as it's being used in user exams."
+    not_found: "Exam template not found."
   subjects:
     index:
       title_short: "Subjects List"
@@ -130,4 +159,8 @@ en:
     result: "RESULT"
   common:
     created_at: "Created at"
+    not_available_short: "N/A"
+    time_units:
+      minutes: "minutes"
+    questions_unit: "questions"
   title: "EXAMO"
