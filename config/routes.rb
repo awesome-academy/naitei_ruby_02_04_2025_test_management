@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /en|vi/ do
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
 
-    root to: "pages#home"
-    get "/home", to: "pages#home"
+    root to: "subjects#index"
     devise_for :users
 
     as :user do
@@ -15,9 +14,27 @@ Rails.application.routes.draw do
 
     resources :subjects, only: %i(index show)
 
+    resources :exams, only: %i(index show) do
+      resources :user_exams, only: %i(create)
+    end
+
+    resources :user_exams, only: %i(index show) do
+      member do
+        get :take_exam
+        patch :submit_answers
+      end
+    end
+
     namespace :supervisor do
       resources :subjects do
+        resources :exams
         resources :questions
+      end
+
+      resources :user_exams, only: %i(index show) do
+        member do
+          post :grade
+        end
       end
     end
   end

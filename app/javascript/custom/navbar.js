@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 $(document).on('turbo:load', function() {
   const $navLinks = $('.navbar ul li a');
 

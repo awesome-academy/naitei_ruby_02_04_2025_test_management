@@ -5,7 +5,7 @@ class Subject < ApplicationRecord
   ].freeze
 
   has_many :questions, dependent: :restrict_with_exception
-  has_many :exams, dependent: :restrict_with_exception
+  has_one :exam, dependent: :restrict_with_exception
 
   validates :name, presence: true,
                   uniqueness: true,

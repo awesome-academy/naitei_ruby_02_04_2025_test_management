@@ -5,13 +5,14 @@ class Question < ApplicationRecord
     answers_attributes: Answer::ANSWER_PARAMS
   ].freeze
 
-  enum question_types: {
+  enum question_type: {
     single_choice: "single_choice",
     multiple_choice: "multiple_choice"
   }
 
   belongs_to :subject
   has_many :answers, dependent: :restrict_with_exception
+  has_many :user_exam_questions, dependent: :restrict_with_exception
 
   accepts_nested_attributes_for :answers, allow_destroy: true,
                                 reject_if: :all_blank

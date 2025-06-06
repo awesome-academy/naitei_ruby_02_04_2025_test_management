@@ -6,12 +6,27 @@ user:
   name:
     min_length: 2
     max_length: 50
+
 subject:
   name:
     min_length: 2
     max_length: 100
   description:
     max_length: 1000
+
+exam:
+  name:
+    max_length: 255
+  duration:
+    greater_than: 0
+  retries:
+    greater_than_or_equal_to: 0
+  pass_ratio:
+    greater_than_or_equal_to: 0
+    
+user_exam:
+  attempt_number:
+    greater_than_or_equal_to: 1
 
 development:
   <<: *defaults
