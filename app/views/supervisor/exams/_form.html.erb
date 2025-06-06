@@ -1,0 +1,54 @@
+<%= form_with(model: @exam, url: supervisor_subject_exams_path(locale: I18n.locale, subject_id: @subject.id), class: "resource-form") do |form| %>
+  <%= render "devise/shared/error_messages", resource: @exam %>
+
+  <div class="form-field">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "input-text", required: true, placeholder: t("activerecord.attributes.exam.name") %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "input-area", rows: 3, placeholder: t("activerecord.attributes.exam.description") %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :number_of_questions_to_take, class: "form-label" %>
+    <%= form.number_field :number_of_questions_to_take, class: "input-text", required: true, min: 1 %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :duration_minutes, class: "form-label" %>
+    <%= form.number_field :duration_minutes, class: "input-text", placeholder: t("placeholders.exam.duration_minutes"), min: 5 %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :retries, class: "form-label" %>
+    <%= form.number_field :retries, class: "input-text", required: true, min: 0 %>
+    <small class="form-text-muted"><%= t("exams.form.retries_allowed_hint") %></small>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :pass_ratio, class: "form-label" %>
+    <%= form.number_field :pass_ratio, class: "input-text", required: true, min: 0, max: 100, placeholder: t("placeholders.exam.pass_ratio") %>
+    <small class="form-text-muted"><%= t("exams.form.pass_ratio_hint") %></small>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :open_at, t("exams.form.open_at_label"), class: "form-label" %>
+    <div class="datetime-select-wrapper">
+      <%= form.datetime_select :open_at, { include_blank: true, minute_step: 5, start_year: Date.current.year, end_year: Date.current.year + 5 }, {} %>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :close_at, t("exams.form.close_at_label"), class: "form-label" %>
+    <div class="datetime-select-wrapper">
+      <%= form.datetime_select :close_at, { include_blank: true, minute_step: 5, start_year: Date.current.year, end_year: Date.current.year + 5 }, {} %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit (exam.new_record? ? t("actions.create_exam") : t("actions.update_exam")), class: "button button-primary" %>
+    <%= link_to t("actions.cancel"), supervisor_subject_path(id: subject.id), class: "button button-secondary" %>
+  </div>
+<% end %>

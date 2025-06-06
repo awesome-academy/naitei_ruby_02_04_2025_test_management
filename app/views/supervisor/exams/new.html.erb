@@ -1,0 +1,13 @@
+<% provide :title, t(".title", subject_name: @subject.name) %>
+
+<div class="page-container exam-form-page">
+  <div class="page-header">
+    <h1 class="page-title"><%= @subject.name %></h1>
+  </div>
+
+  <%= render 'form', subject: @subject, exam: @exam %>
+
+  <div class="page-footer-actions">
+    <%= link_to t("actions.back_to_subject", subject_name: @subject.name), supervisor_subject_path(id: @subject.id), class: "button button-link-style" %>
+  </div>
+</div>
