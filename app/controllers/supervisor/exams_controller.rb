@@ -1,18 +1,14 @@
 class Supervisor::ExamsController < Supervisor::BaseController
-  before_action :find_subject
-  before_action :find_exam, except: %i(index new create)
+  load_and_authorize_resource :subject
+  load_and_authorize_resource :exam, through: :subject, singleton: true
 
   def index; end
 
   def show; end
 
-  def new
-    @exam = @subject.build_exam
-  end
+  def new; end
 
   def create
-    @exam = @subject.build_exam(exam_params)
-
     if @exam.save
       flash[:notice] = t(".success")
       redirect_to supervisor_subject_url(@subject)
@@ -48,7 +44,6 @@ class Supervisor::ExamsController < Supervisor::BaseController
 
   def all_user_exams_finished?
     return true unless @exam.user_exams.exists?
-
     @exam.user_exams.all? { |ue| ue.pass? || ue.fail? }
   end
 
@@ -63,22 +58,6 @@ class Supervisor::ExamsController < Supervisor::BaseController
       flash.now[:alert] = t(".failure")
       render :edit, status: :unprocessable_entity
     end
-  end
-
-  def find_subject
-    @subject = Subject.find_by(id: params[:subject_id])
-    return if @subject
-
-    flash[:alert] = t(".subject_not_found")
-    redirect_to subjects_path
-  end
-
-  def find_exam
-    @exam = @subject.exam
-    return if @exam
-    
-    flash[:alert] = t(".not_found")
-    redirect_to supervisor_subject_exams_url(@subject)
   end
 
   def exam_params

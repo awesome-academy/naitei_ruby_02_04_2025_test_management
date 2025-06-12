@@ -1,5 +1,5 @@
 class SubjectsController < ApplicationController
-  before_action :set_subject, except: %i(index)
+  load_and_authorize_resource except: %i(index)
 
   def index
     @pagy, @subjects = pagy Subject.latest.search(params[:query])
@@ -15,15 +15,5 @@ class SubjectsController < ApplicationController
                                    .get_exam(@exam)
                                    .attempt
     end
-  end
-
-  private
-
-  def set_subject
-    @subject = Subject.find_by(id: params[:id])
-    return if @subject
-
-    flash[:alert] = t(".not_found")
-    redirect_to subjects_path
   end
 end

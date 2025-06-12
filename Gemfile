@@ -55,6 +55,8 @@ gem "sassc-rails"
 
 gem "cocoon"
 
+gem "cancancan", "~> 3.0"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html]
 # gem "image_processing", "~> 1.2"
 

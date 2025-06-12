@@ -1,9 +1,9 @@
 class UserExamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_exam_template, only: %i(create)
-  before_action :set_user_exam, only: %i(take_exam submit_answers)
-  before_action :check_user_permission, only: %i(show take_exam submit_answers)
-  before_action :set_user_exam_details, only: %i(show)
+  load_resource :exam, only: :create
+  load_resource :user_exam, through: :exam, only: :create
+  load_and_authorize_resource except: %i(index create show)
+  before_action :set_user_exam_details, only: :show
 
   def index
     @user_exams = current_user.user_exams
@@ -14,18 +14,21 @@ class UserExamsController < ApplicationController
   end
 
   def create
-    attempt_count = current_user.user_exams.get_exam.count
-    if attempt_count >= @exam_template.retries
-      redirect_to @exam_template, alert: t(".max_attempts_reached") and return
+    attempt_count = current_user.user_exams.get_exam(@exam).count
+    if attempt_count >= @exam.retries
+      redirect_to @exam, alert: t(".max_attempts_reached") and return
     end
 
-    @user_exam = @exam_template.user_exams.new(user: current_user, attempt_number: attempt_count + 1)
+    @user_exam.user = current_user
+    @user_exam.attempt_number = attempt_count + 1
+
+    authorize! :create, @user_exam
 
     if @user_exam.start_exam!
       redirect_to take_exam_user_exam_path(@user_exam), notice: t(".exam_started")
     else
       error_message = @user_exam.errors.full_messages.join(', ')
-      redirect_to exam_path(@exam_template), alert: t(".cannot_start_exam", error: error_message)
+      redirect_to exam_path(@exam), alert: t(".cannot_start_exam", error: error_message)
     end
   end
 
@@ -56,29 +59,9 @@ class UserExamsController < ApplicationController
 
   private
 
-  def set_exam_template
-    @exam_template = Exam.find(params[:exam_id])
-    return if @exam_template
-
-    flash[:alert] = t(".not_found")
-    redirect_to user_exams_path
-  end
-
-  def set_user_exam
-    @user_exam = UserExam.find(params[:id])
-    return if @user_exam
-
-    flash[:alert] = t(".not_found")
-    redirect_to user_exams_path
-  end
-
   def answers_params
     ueq_params = params.require(:user_exam).fetch(:user_exam_questions, {})
     ueq_params.permit(ueq_params.keys.to_h { |k| [k, [:answer_ids, answer_ids: []]] }).to_h
-  end
-
-  def check_user_permission
-    redirect_to root_path, alert: t(".not_authorized") unless @user_exam.user == current_user
   end
 
   def set_user_exam_details

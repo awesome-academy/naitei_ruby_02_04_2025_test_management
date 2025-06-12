@@ -5,6 +5,15 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    flash[:alert] = t("errors.messages.record_not_found")
+    redirect_to request.referer || root_path
+  end
+
   def default_url_options
     {locale: params[:locale] || I18n.default_locale}
   end

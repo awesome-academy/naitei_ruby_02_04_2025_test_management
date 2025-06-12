@@ -341,4 +341,5 @@ vi:
   errors:
     messages:
       exam_open_close_dates: "Thời gian mở và đóng đề không hợp lệ. Vui lòng kiểm tra lại."
+      record_not_found: "Đối tượng bạn đang tìm kiếm không tồn tại hoặc đã bị xóa."
   title: "EXAMO"
