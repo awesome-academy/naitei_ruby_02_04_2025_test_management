@@ -28,6 +28,9 @@ en:
     search: "Search ..."
     answer:
       content: "Answer content..."
+    exam:
+      duration_minutes: "Example: 60 (minutes)"
+      pass_ratio: "Example: 50 (for 50%)"
   actions:
     remove_answer: "Remove Answer"
     add_answer: "Add Answer"
@@ -38,91 +41,117 @@ en:
     delete: "Delete"
     back_to_subject_questions: "Back to Questions for %{subject_name}"
     show_question: "View this Question"
+    create_exam: "Create Exam Template"
+    update_exam: "Update Exam Template"
+    back_to_subject: "Back to %{subject_name}"
   messages:
     confirm_delete_question: "Are you sure you want to delete this question and all its answers?"
+    confirm_delete_exam_template: "Are you sure you want to delete this exam template? This action cannot be undone."
   user:
     username: "Username"
   supervisor:
     not_authorized: "You are not authorized to perform this action."
-  subjects:
-    index:
-      title_short: "Subjects List"
-      title: "Subjects List"
-      new: "New Subject"
-      search_placeholder: "Search by name..."
-      search: "Search"
-      no_subjects_found: "No subjects available at the moment."
-    new:
-      title: "New Subject"
-      back: "Back"
-      web_title: "CREATE SUBJECT"
-      create: "Create"
-      delete: "Delete"
-    edit:
-      title: "Edit Subject"
-      back: "Back"
-    show:
-      title: "Subject Details"
-      back: "Back"
-      edit: "Edit"
-      delete: "Delete"
-      confirm: "Are you sure?"
-    create:
-      success: "Subject was successfully created."
-    update:
-      success: "Subject was successfully updated."
-    destroy:
-      success: "Subject was successfully deleted."
-      failed: "Failed to delete subject."
-      has_enrolled_users: "Cannot delete this subject because users are enrolled in it."
-      has_questions: "Cannot delete this subject because it has associated questions."
-      has_exams: "Cannot delete this subject because it has associated exams."
-    enroll:
-      already_enrolled: "You are already enrolled in this subject."
-      enroll_success: "Successfully enrolled in the subject!"
-      enroll_failed: "Failed to enroll in the subject. Please try again."
-    enroll_button_text: "Enroll in Subject"
-    learning_text: "Learn"
-    view_details_text: "View Details"
-    login_to_enroll_text: "Please log in to enroll in this subject."
-    not_found: "Subject not found."
-    not_authorized: "You are not authorized to perform this action."
-    delete_text: "Delete"
-  questions:
-    create:
-      success: "Question was successfully created."
-      failure: "Failed to create question. Please check the errors below."
-    update:
-      success: "Question was successfully updated."
-      failure: "Failed to update question. Please check the errors below."
-      question_in_use_created_new: "This question is already in use. A new question has been created with the same content."
-      question_in_use_create_new_failed: "Failed to create a new question with the same content."
-    destroy:
-      success: "Question was successfully deleted."
-      failure: "Failed to delete question."
-      has_answers: "This question cannot be deleted because it has associated answers."
-    set_subject:
-      subject_not_found: "Subject not found."
-    set_question:
-      not_found: "Question not found for this subject."
-    index:
-      title_short: "Questions List"
-      title: "Questions for %{subject_name}"
-      no_questions: "No questions found for this subject yet."
-      add_new_question: "Add New Question"
-    new:
-      title: "New Question for %{subject_name}"
-      heading: "Create a New Question for %{subject_name}"
-    edit:
-      title: "Edit Question"
-      heading: "Editing Question"
-    form:
-      answers_heading: "Answer Options:"
-      add_answer_link: "Add Answer Option"
-      save_button_new: "Create Question"
-      save_button_edit: "Update Question"
-    common:
-      answers_count: "Number of Answers"
+    exams:
+      index:
+        title_short: "Exam Templates"
+        add_new_exam: "New Exam Template"
+        no_exams_found_for_subject: "No exam templates found for this subject yet."
+      form:
+        retries_allowed_hint: "Enter 0 for unlimited retries (or handle this logic separately)."
+        pass_ratio_hint: "Passing percentage required."
+        open_at_label: "Opening Time (Optional)"
+        close_at_label: "Closing Time (Optional)"
+      create:
+        success: "Exam template created successfully."
+        failure: "Failed to create exam template."
+      update:
+        success: "Exam template updated successfully."
+        failure: "Failed to update exam template."
+        success_limited_update: "Exam template updated successfully with limited changes."
+      destroy:
+        success: "Exam template deleted successfully."
+        failure: "Failed to delete exam template."
+        has_user_exams: "Cannot delete this template as it's being used in user exams."
+      not_found: "Exam template not found."
+    subjects:
+      index:
+        title_short: "Subjects List"
+        title: "Subjects List"
+        new: "New Subject"
+        search_placeholder: "Search by name..."
+        search: "Search"
+        no_subjects_found: "No subjects available at the moment."
+      new:
+        title: "New Subject"
+        back: "Back"
+        web_title: "CREATE SUBJECT"
+        create: "Create"
+        delete: "Delete"
+      edit:
+        title: "Edit Subject"
+        back: "Back"
+      show:
+        title: "Subject Details"
+        back: "Back"
+        edit: "Edit"
+        delete: "Delete"
+        confirm: "Are you sure?"
+      create:
+        success: "Subject was successfully created."
+      update:
+        success: "Subject was successfully updated."
+      destroy:
+        success: "Subject was successfully deleted."
+        failed: "Failed to delete subject."
+        has_enrolled_users: "Cannot delete this subject because users are enrolled in it."
+        has_questions: "Cannot delete this subject because it has associated questions."
+        has_exams: "Cannot delete this subject because it has associated exams."
+      enroll:
+        already_enrolled: "You are already enrolled in this subject."
+        enroll_success: "Successfully enrolled in the subject!"
+        enroll_failed: "Failed to enroll in the subject. Please try again."
+      enroll_button_text: "Enroll in Subject"
+      learning_text: "Learn"
+      view_details_text: "View Details"
+      login_to_enroll_text: "Please log in to enroll in this subject."
+      not_found: "Subject not found."
+      not_authorized: "You are not authorized to perform this action."
+      delete_text: "Delete"
+    questions:
+      create:
+        success: "Question was successfully created."
+        failure: "Failed to create question. Please check the errors below."
+      update:
+        success: "Question was successfully updated."
+        failure: "Failed to update question. Please check the errors below."
+        question_in_use_created_new: "This question is already in use. A new question has been created with the same content."
+        question_in_use_create_new_failed: "Failed to create a new question with the same content."
+      destroy:
+        success: "Question was successfully deleted."
+        failure: "Failed to delete question."
+        has_answers: "This question cannot be deleted because it has associated answers."
+      set_subject:
+        subject_not_found: "Subject not found."
+      set_question:
+        not_found: "Question not found for this subject."
+      index:
+        title_short: "Questions List"
+        title: "Questions for %{subject_name}"
+        no_questions: "No questions found for this subject yet."
+        add_new_question: "Add New Question"
+      new:
+        title: "New Question for %{subject_name}"
+        heading: "Create a New Question for %{subject_name}"
+      edit:
+        title: "Edit Question"
+        heading: "Editing Question"
+      form:
+        answers_heading: "Answer Options:"
+        add_answer_link: "Add Answer Option"
+        save_button_new: "Create Question"
+        save_button_edit: "Update Question"
+      common:
+        answers_count: "Number of Answers"
   navbar:
     home: "HOME"
     subject: "SUBJECT"
@@ -130,4 +159,8 @@ en:
     result: "RESULT"
   common:
     created_at: "Created at"
+    not_available_short: "N/A"
+    time_units:
+      minutes: "minutes"
+    questions_unit: "questions"
   title: "EXAMO"

@@ -18,7 +18,7 @@ class Supervisor::QuestionsController < Supervisor::BaseController
 
     if @question.save
       flash[:notice] = t(".success")
-      redirect_to subject_questions_url(@subject)
+      redirect_to supervisor_subject_url(@subject)
     else
       flash.now[:alert] = t(".failure")
       @question.answers.build if @question.answers.empty? && question_params[:answers_attributes].blank?
@@ -32,11 +32,21 @@ class Supervisor::QuestionsController < Supervisor::BaseController
 
   def update
     if @question.user_exam_questions.exists?
-      @new_question = @subject.questions.build(question_params)
+      original_params = question_params
+      new_question_attrs = original_params.deep_dup
+
+      if new_question_attrs[:answers_attributes].present?
+        new_question_attrs[:answers_attributes].each_value do |ans_attrs|
+          ans_attrs.delete(:id)
+          ans_attrs.delete("id")
+        end
+      end
+
+      @new_question = @subject.questions.build(new_question_attrs)
 
       if @new_question.save
         flash[:notice] = t(".question_in_use_created_new")
-        redirect_to subject_questions_url(@subject)
+        redirect_to supervisor_subject_url(@subject)
       else
         flash.now[:alert] = t(".question_in_use_create_new_failed")
         @original_question_for_form = @question
@@ -55,7 +65,7 @@ class Supervisor::QuestionsController < Supervisor::BaseController
     else
       if @question.update(question_params)
         flash[:notice] = t(".success")
-        redirect_to subject_questions_url(@subject)
+        redirect_to supervisor_subject_url(@subject)
       else
         flash.now[:alert] = t(".failure")
         render :edit, status: :unprocessable_entity
@@ -71,7 +81,7 @@ class Supervisor::QuestionsController < Supervisor::BaseController
     else
       flash[:alert] = t(".failure")
     end
-    redirect_to subject_questions_url(@subject)
+    redirect_to supervisor_subject_url(@subject)
   end
 
   private
@@ -86,10 +96,10 @@ class Supervisor::QuestionsController < Supervisor::BaseController
 
   def find_question
     @question = @subject.questions.find_by(id: params[:id])
-    unless @question
-      flash[:alert] = t(".not_found")
-      redirect_to subject_questions_path(@subject)
-    end
+    return if @question
+    
+    flash[:alert] = t(".not_found")
+    redirect_to subject_questions_path(@subject)
   end
 
   def question_params

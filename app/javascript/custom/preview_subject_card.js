@@ -1,7 +1,5 @@
-import $ from 'jquery'
-
 $(document).on('turbo:load turbo:render', function() {
-  const $form = $('form#new_subject');
+  const $form = $('form.new_subject, form.edit_subject');
 
   if (!$form.length) {
     return;

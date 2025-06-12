@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def default_url_options
+    {locale: params[:locale] || I18n.default_locale}
+  end
+
   protected
 
   def configure_permitted_parameters
@@ -18,6 +22,14 @@ class ApplicationController < ActionController::Base
       "devise_layout"
     else
       "application"
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    if resource.supervisor?
+      supervisor_subjects_path
+    else
+      subjects_path
     end
   end
 end

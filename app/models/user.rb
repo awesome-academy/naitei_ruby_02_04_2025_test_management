@@ -9,7 +9,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  has_many :exam_results, dependent: :restrict_with_exception
+  has_many :user_exams, dependent: :restrict_with_exception
 
   validates :name, presence: true, length: {
     minimum: Settings.user.name.min_length,
