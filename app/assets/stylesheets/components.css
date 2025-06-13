@@ -69,6 +69,10 @@ body {
         border-radius: 100%;
         object-fit: cover;
       }
+
+      > a {
+        margin-left: 0;
+      }
     }
 
     a {
@@ -664,7 +668,7 @@ body {
 }
 
 .datetime-select-wrapper {
-  display: flex; 
+  display: flex;
   align-items: center;
   gap: var(--spacing-sm, 0.5rem);
 
