@@ -1,5 +1,5 @@
 class Supervisor::SubjectsController < Supervisor::BaseController
-  before_action :find_subject_for_supervisor, except: %i(index new create)
+  load_and_authorize_resource except: %i(index)
 
   def index
     @pagy, @subjects = pagy Subject.latest.search(params[:query])
@@ -29,12 +29,9 @@ class Supervisor::SubjectsController < Supervisor::BaseController
     @exam = @subject.exam
   end
 
-  def new
-    @subject = Subject.new
-  end
+  def new; end
 
   def create
-    @subject = Subject.new(subject_params)
     if @subject.save
       flash[:notice] = t(".success")
       redirect_to supervisor_subjects_path
@@ -71,20 +68,5 @@ class Supervisor::SubjectsController < Supervisor::BaseController
 
   def subject_params
     params.require(:subject).permit Subject::SUBJECT_ATTRS
-  end
-
-  def find_subject_for_supervisor
-    @subject = Subject.find_by(id: params[:id])
-    return if @subject
-
-    flash[:alert] = t(".not_found")
-    redirect_to subjects_path
-  end
-
-  def authorize_supervisor!
-    return if current_user.supervisor?
-
-    flash[:alert] = t(".not_authorized")
-    redirect_to root_path
   end
 end

@@ -1,5 +1,5 @@
 class Supervisor::UserExamsController < Supervisor::BaseController
-  before_action :set_user_exam, only: %i(grade)
+  load_and_authorize_resource, only: %i(grade)
   before_action :set_user_exam_details, only: %i(show)
 
   def index
@@ -24,14 +24,6 @@ class Supervisor::UserExamsController < Supervisor::BaseController
   end
 
   private
-
-  def set_user_exam
-    @user_exam = UserExam.find(params[:id])
-    return if @user_exam
-
-    flash[:alert] = t(".not_found")
-    redirect_to supervisor_user_exams_path
-  end
 
   def set_user_exam_details
     @user_exam_with_details = UserExam.includes(
