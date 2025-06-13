@@ -108,6 +108,49 @@ vi:
     confirm_delete_exam_template: "Bạn chắc chắn muốn xóa cấu hình bài thi này? Các lượt làm bài dựa trên cấu hình này sẽ không bị ảnh hưởng trực tiếp nhưng không thể tạo lượt làm bài mới từ cấu hình này."
   user:
     username: "Tên người dùng"
+  devise:
+    registrations:
+      edit:
+        title: "Chỉnh sửa thông tin Người dùng"
+        email_label: "Email"
+        unconfirmed_email_notice: "Đang chờ xác nhận cho:"
+        password_label: "Mật khẩu mới"
+        password_instruction: "(để trống nếu bạn không muốn thay đổi)"
+        password_length_minimum: "ký tự tối thiểu"
+        password_confirmation_label: "Xác nhận mật khẩu mới"
+        current_password_label: "Mật khẩu hiện tại"
+        current_password_instruction: "(chúng tôi cần mật khẩu hiện tại của bạn để xác nhận các thay đổi)"
+        update_button: "Cập nhật"
+        cancel_account_title: "Hủy tài khoản"
+        unhappy_prompt: "Không hài lòng?"
+        cancel_account_button: "Hủy tài khoản của tôi"
+        confirm_cancellation: "Bạn có chắc chắn không?"
+        back_link: "Quay lại"
+    passwords:
+      new:
+        title: "Quên mật khẩu"
+        heading: "Quên mật khẩu?"
+        submit: "Gửi tôi hướng dẫn đặt lại mật khẩu"
+      edit:
+        title: "Thay đổi mật khẩu"
+        heading: "Thay đổi mật khẩu của bạn"
+        new_password_label: "Mật khẩu mới"
+        password_length_minimum: "%{number} ký tự tối thiểu"
+        confirm_new_password_label: "Xác nhận mật khẩu mới"
+        submit_button: "Thay đổi mật khẩu của tôi"
+    shared:
+      links:
+        sign_in: "Đăng nhập"
+        forgot_your_password: "Quên mật khẩu của bạn?"
+    mailer:
+      reset_password_instructions:
+        subject: "Hướng dẫn đặt lại mật khẩu"
+        greeting: "Chào %{email}!"
+        instruction: "Ai đó đã yêu cầu một liên kết để thay đổi mật khẩu của bạn. Bạn có thể thực hiện việc này thông qua liên kết dưới đây."
+        change_password_link: "Thay đổi mật khẩu của tôi"
+        ignore_if_not_requested: "Nếu bạn không yêu cầu điều này, vui lòng bỏ qua email này."
+        no_change_warning: "Mật khẩu của bạn sẽ không thay đổi cho đến khi bạn truy cập liên kết ở trên và tạo một mật khẩu mới."
+
   user_exams:
     index:
       title: "Kết quả các bài thi của tôi"
@@ -342,4 +385,10 @@ vi:
     messages:
       exam_open_close_dates: "Thời gian mở và đóng đề không hợp lệ. Vui lòng kiểm tra lại."
       record_not_found: "Đối tượng bạn đang tìm kiếm không tồn tại hoặc đã bị xóa."
+      not_found: "không tìm thấy"
+      already_confirmed: "đã được xác nhận, vui lòng thử đăng nhập"
+      not_locked: "không bị khóa"
+      not_saved:
+        one: "1 lỗi đã ngăn không cho %{resource} được lưu:"
+        other: "%{count} lỗi đã ngăn không cho %{resource} được lưu:"
   title: "EXAMO"
