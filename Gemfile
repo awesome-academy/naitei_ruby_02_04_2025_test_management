@@ -57,8 +57,10 @@ gem "cocoon"
 
 gem "cancancan", "~> 3.0"
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html]
+gem "ransack"
+
 # gem "image_processing", "~> 1.2"
+# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html]
 
 group :development, :test do
   gem "debug", platforms: %i(mri mingw x64_mingw)

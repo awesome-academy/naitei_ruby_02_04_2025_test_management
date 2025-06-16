@@ -3,7 +3,10 @@ class Supervisor::QuestionsController < Supervisor::BaseController
   load_and_authorize_resource :question, through: :subject, except: %i(index)
 
   def index
-    @questions = @subject.questions.latest
+    @q = Question.ransack(params[:q])
+    @questions = @q.result.includes(:subject).latest
+    @pagy, @questions = pagy @q.result.includes(:subject).latest
+    @subjects = Subject.order(:name).select(:id, :name)
   end
 
   def show; end

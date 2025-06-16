@@ -106,9 +106,14 @@ vi:
   messages:
     confirm_delete_question: "Bạn chắc chắn muốn xóa câu hỏi này và tất cả các câu trả lời của nó?"
     confirm_delete_exam_template: "Bạn chắc chắn muốn xóa cấu hình bài thi này? Các lượt làm bài dựa trên cấu hình này sẽ không bị ảnh hưởng trực tiếp nhưng không thể tạo lượt làm bài mới từ cấu hình này."
-  user:
+  users:
     username: "Tên người dùng"
+    toggle_active:
+      success: "Cập nhật trạng thái người dùng thành công."
+      error: "Không thể cập nhật trạng thái người dùng."
   devise:
+    failure:
+      inactive_account: "Tài khoản của bạn đã bị vô hiệu hóa hoặc đang bị khóa. Vui lòng liên hệ quản trị viên."
     registrations:
       edit:
         title: "Chỉnh sửa thông tin Người dùng"
@@ -150,7 +155,6 @@ vi:
         change_password_link: "Thay đổi mật khẩu của tôi"
         ignore_if_not_requested: "Nếu bạn không yêu cầu điều này, vui lòng bỏ qua email này."
         no_change_warning: "Mật khẩu của bạn sẽ không thay đổi cho đến khi bạn truy cập liên kết ở trên và tạo một mật khẩu mới."
-
   user_exams:
     index:
       title: "Kết quả các bài thi của tôi"
@@ -201,6 +205,54 @@ vi:
       user_not_found: "Không tìm thấy người dùng."
   supervisor:
     not_authorized: "Bạn không có quyền thực hiện hành động này."
+    users:
+      username: "Tên người dùng"
+      toggle_active:
+        success: "Cập nhật trạng thái người dùng thành công."
+        error: "Không thể cập nhật trạng thái người dùng."
+      index:
+        title: "Danh sách Người dùng"
+        search_placeholder: "Tìm theo tên hoặc email..."
+        not_updated: "Chưa cập nhật"
+        table_headers:
+          id: "ID"
+          user: "Người dùng"
+          role: "Vai trò"
+          status: "Trạng thái"
+          joined_date: "Ngày tham gia"
+          actions: "Hành động"
+        status_labels:
+          active: "Hoạt động"
+          inactive: "Vô hiệu hóa"
+        action_titles:
+          view_details: "Xem chi tiết"
+          toggle_status: "Đổi trạng thái"
+      show:
+        no_name: "Chưa cập nhật tên"
+        status:
+          active: "Hoạt động"
+          inactive: "Vô hiệu hóa"
+        actions:
+          deactivate: "Vô hiệu hóa"
+          activate: "Kích hoạt"
+        details_section:
+          title: "Thông tin chi tiết"
+          joined_date: "Ngày tham gia:"
+          last_sign_in: "Lần đăng nhập cuối:"
+          last_sign_in_ip: "Địa chỉ IP cuối:"
+          sign_in_count: "Tổng số lần đăng nhập:"
+          not_yet_logged_in: "Chưa đăng nhập"
+          not_available: "N/A"
+        exam_history_section:
+          title: "Các bài thi đã làm"
+          not_applicable: "N/A"
+          no_exams_message: "Người dùng này chưa làm bài thi nào."
+          table_headers:
+            exam_name: "Tên bài thi"
+            status: "Trạng thái"
+            score: "Điểm số"
+            date: "Ngày làm bài"
+        back_to_list: "← Quay lại danh sách"
     subjects:
       index:
         title_short: "Danh sách môn học"
@@ -290,6 +342,28 @@ vi:
         has_user_exams: "Không thể xóa cấu hình này vì đã có người dùng làm bài thi dựa trên nó."
       not_found: "Cấu hình bài thi không tồn tại."
     questions:
+      index:
+        title: "Quản lý Câu hỏi"
+        search_form:
+          content: "Nội dung câu hỏi"
+          content_placeholder: "Nhập từ khóa..."
+          subject: "Môn học"
+          all_subjects: "Tất cả môn học"
+          question_type: "Loại câu hỏi"
+          all_types: "Tất cả các loại"
+          submit: "Tìm kiếm"
+          clear_filters: "Xóa bộ lọc"
+        table_headers:
+          content: "Nội dung"
+          subject: "Môn học"
+          type: "Loại"
+          created_at: "Ngày tạo"
+          actions: "Hành động"
+        action_titles:
+          edit: "Sửa"
+          view: "Xem"
+          destroy: "Xóa"
+        no_records: "Không tìm thấy câu hỏi nào phù hợp."
       create:
         success: "Câu hỏi đã được tạo thành công."
         failure: "Tạo câu hỏi thất bại. Vui lòng kiểm tra lại các lỗi được liệt kê."
@@ -306,9 +380,6 @@ vi:
         subject_not_found: "Không tìm thấy môn học."
       set_question:
         not_found: "Không tìm thấy câu hỏi trong môn học này."
-      index:
-        title: "Danh sách câu hỏi cho môn: %{subject_name}"
-        no_questions: "Chưa có câu hỏi nào cho môn học này."
       new:
         title: "Câu hỏi mới cho môn: %{subject_name}"
         heading: "Tạo câu hỏi mới cho: %{subject_name}"
@@ -375,6 +446,8 @@ vi:
     subject: "MÔN HỌC"
     exam: "BÀI KIỂM TRA"
     result: "KẾT QUẢ"
+    user_list: "NGƯỜI DÙNG"
+    question_list: "CÂU HỎI"
   common:
     created_at: "Tạo lúc"
     not_available_short: "N/A"

@@ -31,6 +31,8 @@ Rails.application.routes.draw do
         resources :questions
       end
 
+      resources :questions, only: :index
+
       resources :user_exams, only: %i(index show) do
         member do
           post :grade

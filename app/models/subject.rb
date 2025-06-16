@@ -25,4 +25,10 @@ class Subject < ApplicationRecord
     search_query = "%#{query.downcase}%"
     where("LOWER(name) LIKE ? OR LOWER(description) LIKE ?", search_query, search_query)
   }
+
+  private
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "description", "id", "name", "updated_at"]
+  end
 end
