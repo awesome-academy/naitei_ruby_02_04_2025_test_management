@@ -3,7 +3,10 @@ class Supervisor::QuestionsController < Supervisor::BaseController
   load_and_authorize_resource :question, through: :subject, except: %i(index)
 
   def index
-    @questions = @subject.questions.latest
+    @qts = Question.ransack(params[:qts])
+    @questions = @qts.result.includes(:subject).latest
+    @pagy, @questions = pagy @qts.result.includes(:subject).latest
+    @subjects = Subject.order(:name).select(:id, :name)
   end
 
   def show; end
@@ -18,13 +21,17 @@ class Supervisor::QuestionsController < Supervisor::BaseController
       redirect_to supervisor_subject_url(@subject)
     else
       flash.now[:alert] = t(".failure")
-      @question.answers.build if @question.answers.empty? && question_params[:answers_attributes].blank?
+      if @question.answers.empty? && question_params[:answers_attributes].blank?
+        @question.answers.build
+      end
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @question.answers.build if @question.answers.empty? && (@question.single_choice? || @question.multiple_choice?)
+    if @question.answers.empty? && (@question.single_choice? || @question.multiple_choice?)
+      @question.answers.build
+    end
   end
 
   def update
@@ -52,21 +59,24 @@ class Supervisor::QuestionsController < Supervisor::BaseController
 
         if @question.answers.empty? && question_params[:answers_attributes].present?
           question_params[:answers_attributes].each_value do |ans_attrs|
-            @question.answers.build(ans_attrs.except(:id, :_destroy)) unless ans_attrs[:_destroy] == '1'
+            unless ans_attrs[:_destroy] == "1"
+              @question.answers.build(ans_attrs.except(:id,
+                                                       :_destroy))
+            end
           end
         end
-        @question.answers.build if @question.answers.empty? && (@question.single_choice? || @question.multiple_choice?)
+        if @question.answers.empty? && (@question.single_choice? || @question.multiple_choice?)
+          @question.answers.build
+        end
 
         render :edit, status: :unprocessable_entity
       end
+    elsif @question.update(question_params)
+      flash[:notice] = t(".success")
+      redirect_to supervisor_subject_url(@subject)
     else
-      if @question.update(question_params)
-        flash[:notice] = t(".success")
-        redirect_to supervisor_subject_url(@subject)
-      else
-        flash.now[:alert] = t(".failure")
-        render :edit, status: :unprocessable_entity
-      end
+      flash.now[:alert] = t(".failure")
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -79,6 +89,16 @@ class Supervisor::QuestionsController < Supervisor::BaseController
       flash[:alert] = t(".failure")
     end
     redirect_to supervisor_subject_url(@subject)
+  end
+
+  def export
+    @questions = @subject.questions.includes(:answers).latest
+    respond_to do |format|
+      format.xlsx do
+        response.headers["Content-Disposition"] =
+          "attachment; filename=\"#{@subject.name.parameterize}_questions_#{Time.zone.now.strftime('%Y%m%d')}.xlsx\""
+      end
+    end
   end
 
   private

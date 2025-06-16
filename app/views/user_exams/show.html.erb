@@ -1,0 +1,106 @@
+<% provide :title, t("user_exams.show.title", exam_name: @user_exam_with_details.exam.name) %>
+
+<div class="page-container exam-result-page">
+  <div class="page-header">
+    <h1 class="page-title"><%= t("user_exams.show.heading") %></h1>
+  </div>
+
+  <div class="content-card result-summary-card">
+    <div class="card-section">
+      <h2 class="card-header-title"><%= @user_exam_with_details.exam.name %></h2>
+      <p class="meta-text"><%= t("user_exams.show.submitted_at", submitted_time: l(@user_exam_with_details.completed_at, format: :long)) if @user_exam_with_details.completed_at %></p>
+      <hr>
+      <div class="final-score-display">
+        <div class="score-label"><%= t("user_exams.show.result_label") %></div>
+
+        <% if @user_exam_with_details.pass? || @user_exam_with_details.fail? %>
+          <div class="score-value <%= @user_exam_with_details.status %>">
+            <%= @user_exam_with_details.score %> / 100
+          </div>
+        <% elsif @user_exam_with_details.grading_pending? %>
+          <div class="score-value pending-grade">
+            <%= t("user_exams.statuses.grading_pending") %>
+          </div>
+          <p class="meta-text mt-2"><%= t("user_exams.show.grading_pending_message") %></p>
+        <% else %>
+          <div class="score-value pending-grade">
+            <%= t("user_exams.statuses.pending_grade_display") %>
+          </div>
+        <% end %>
+
+        <% if @user_exam_with_details.pass? || @user_exam_with_details.fail? %>
+          <div class="status-value <%= @user_exam_with_details.status %>">
+            <%= t("user_exams.statuses.#{@user_exam_with_details.status}") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subsection-title"><%= t("user_exams.show.review_answers") %></h3>
+
+  <div class="questions-review-list">
+    <% @user_exam_with_details.user_exam_questions.order(:display_order).each do |ueq| %>
+      <% question = ueq.question %>
+      <div class="content-card question-review-block">
+        <div class="card-section">
+          <h4 class="item-title"><%= ueq.display_order %>. <%= question.content %></h4>
+
+          <% if question.essay? %>
+            <div class="essay-review-section">
+              <div class="student-answer">
+                <strong><%= t("user_exams.show.your_answer") %>:</strong>
+                <p class="essay-content"><%= ueq.text_answer.presence || t("user_exams.show.no_answer") %></p>
+                <% if @user_exam_with_details.pass? || @user_exam_with_details.fail? %>
+                  <p class="meta-text"><%= t("user_exams.show.score_for_this_question") %>: <strong><%= ueq.score %> / 1</strong></p>
+                <% end %>
+              </div>
+            </div>
+          <% else %>
+            <div class="answers-review-block">
+              <% user_chosen_answer_ids = ueq.user_exam_answers.pluck(:answer_id) %>
+              <% question.answers.each do |answer_option| %>
+                <% is_user_choice = user_chosen_answer_ids.include?(answer_option.id) %>
+
+                <% if @user_exam_with_details.pass? || @user_exam_with_details.fail? %>
+                  <% is_correct_answer = answer_option.is_correct? %>
+                  <% review_class = "" %>
+                  <% if is_user_choice && is_correct_answer %>
+                    <% review_class = "user-chose-correct" %>
+                  <% elsif is_user_choice && !is_correct_answer %>
+                    <% review_class = "user-chose-wrong" %>
+                  <% end %>
+
+                  <div class="answer-review-option <%= review_class %>">
+                    <% if is_user_choice && is_correct_answer %>
+                      <i class="fa-solid fa-check-circle correct-icon"></i>
+                    <% elsif is_user_choice && !is_correct_answer %>
+                      <i class="fa-solid fa-xmark-circle wrong-icon"></i>
+                    <% else %>
+                      <i class="fa-regular fa-circle neutral-icon"></i>
+                    <% end %>
+                    <p><%= answer_option.content %></p>
+                  </div>
+                <% else %>
+                  <div class="answer-review-option <%= 'user-chose-preview' if is_user_choice %>">
+                    <% if is_user_choice %>
+                      <i class="fa-solid fa-circle-check chosen-icon"></i>
+                    <% else %>
+                      <i class="fa-regular fa-circle neutral-icon"></i>
+                    <% end %>
+                    <p><%= answer_option.content %></p>
+                  </div>
+                <% end %>
+
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="page-footer-actions">
+    <%= link_to t("actions.back_to_exams_list"), user_exams_path, class: "button button-secondary" %>
+  </div>
+</div>

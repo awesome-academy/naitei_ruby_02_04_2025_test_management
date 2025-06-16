@@ -20,15 +20,19 @@
 
   <hr class="section-divider">
 
-  <%= render 'exam_list' %>
+  <%= render "shared/exam_list" %>
 
   <hr class="section-divider">
 
-  <%= render 'question_list' %>
+  <%= render "user_exam_list" %>
+
+  <hr class="section-divider">
+
+  <%= render "question_list" %>
 
   <hr class="section-divider">
 
   <div class="page-footer-actions">
-    <%= link_to t("subjects.index.title_short"), subjects_path, class: "button button-secondary" %>
+    <%= link_to t("subjects.index.title_short"), supervisor_subjects_path, class: "button button-secondary" %>
   </div>
 </div>

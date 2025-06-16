@@ -1,12 +1,6 @@
 <div class="navbar">
   <ul>
     <li class="active">
-      <%= link_to home_path do %>
-        <i class="fa-solid fa-house"></i>
-        <p><%= t "navbar.home" %></p>
-      <% end %>
-    </li>
-    <li>
      <% if current_user&.supervisor? %>
       <%= link_to supervisor_subjects_path do %>
         <i class="fa-solid fa-book-open"></i>
@@ -20,15 +14,32 @@
     <% end %>
     </li>
     <li>
-      <%= link_to "#" do %>
-        <i class="fa-solid fa-file"></i>
+      <% if current_user&.supervisor? %>
+        <%= link_to supervisor_user_exams_path do %>
+          <i class="fa-solid fa-file"></i>
+          <p><%= t "navbar.exam" %></p>
+        <% end %>
+      <% else %>
+        <%= link_to user_exams_path do %>
+          <i class="fa-solid fa-file"></i>
         <p><%= t "navbar.exam" %></p>
+        <% end %>
       <% end %>
     </li>
     <li>
-      <%= link_to "#" do %>
-        <i class="fa-solid fa-file-lines"></i>
-        <p><%= t "navbar.result" %></p>
+      <% if current_user&.supervisor? %>
+        <%= link_to supervisor_users_path do %>
+          <i class="fa-solid fa-users"></i>
+          <p><%= t "navbar.user_list" %></p>
+        <% end %>
+      <% end %>
+    </li>
+    <li>
+      <% if current_user&.supervisor? %>
+        <%= link_to supervisor_questions_path do %>
+          <i class="fa-solid fa-book"></i>
+          <p><%= t "navbar.question_list" %></p>
+        <% end %>
       <% end %>
     </li>
   </ul>

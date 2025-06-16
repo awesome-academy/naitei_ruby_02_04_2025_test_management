@@ -17,8 +17,8 @@ class User < ApplicationRecord
   }
   validates :role, presence: true, inclusion: {in: roles.keys}
 
-  scope :latest, -> { order(created_at: :desc) }
-  scope :search_by_name_or_email, ->(query) {
+  scope :latest, ->{order(created_at: :desc)}
+  scope :search_by_name_or_email, lambda {|query|
     return all if query.blank?
 
     sanitized_query = "%#{query.downcase}%"

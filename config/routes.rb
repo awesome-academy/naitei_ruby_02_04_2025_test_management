@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :supervisor do
+    get 'question_imports/new'
+    get 'question_imports/create'
+  end
   scope "(:locale)", locale: /en|vi/ do
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
 
@@ -28,13 +32,23 @@ Rails.application.routes.draw do
     namespace :supervisor do
       resources :subjects do
         resources :exams
-        resources :questions
+        resources :questions do
+          get :export, on: :collection
+        end
+        resource :question_import, only: [:new, :create]
       end
+
+      resources :questions, only: :index
 
       resources :user_exams, only: %i(index show) do
         member do
-          post :grade
+          patch :start_grading
+          patch :finalize_grading
         end
+      end
+
+      resources :user_exam_questions, only: [] do
+        patch :grade_essay, on: :member
       end
 
       resources :users, only: %i(index show) do

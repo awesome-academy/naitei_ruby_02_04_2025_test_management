@@ -13,7 +13,15 @@
     </div>
   </div>
 
-  <hr class="section-divider">
+  <% if user_signed_in? %>
+    <hr class="section-divider">
+
+    <%= render "shared/exam_list" %>
+
+    <hr class="section-divider">
+
+    <%= render "user_exam_list" %>
+  <% end %>
 
   <div class="page-footer-actions">
     <%= link_to t("subjects.index.title_short"), subjects_path, class: "button button-secondary" %>

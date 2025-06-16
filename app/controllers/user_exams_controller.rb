@@ -9,7 +9,9 @@ class UserExamsController < ApplicationController
     @user_exams = current_user.user_exams
                               .includes(exam: :subject)
                               .latest
-    @user_exams = @user_exams.search_by_subject_name(params[:query]) if params[:query].present?
+    if params[:query].present?
+      @user_exams = @user_exams.search_by_subject_name(params[:query])
+    end
     @search_query = params[:query]
   end
 
@@ -25,10 +27,12 @@ class UserExamsController < ApplicationController
     authorize! :create, @user_exam
 
     if @user_exam.start_exam!
-      redirect_to take_exam_user_exam_path(@user_exam), notice: t(".exam_started")
+      redirect_to take_exam_user_exam_path(@user_exam),
+                  notice: t(".exam_started")
     else
-      error_message = @user_exam.errors.full_messages.join(', ')
-      redirect_to exam_path(@exam), alert: t(".cannot_start_exam", error: error_message)
+      error_message = @user_exam.errors.full_messages.join(", ")
+      redirect_to exam_path(@exam),
+                  alert: t(".cannot_start_exam", error: error_message)
     end
   end
 
@@ -36,7 +40,11 @@ class UserExamsController < ApplicationController
     if @user_exam.completed?
       redirect_to user_exam_path(@user_exam), alert: t(".complete") and return
     end
-    @user_exam.update(status: "in_progress", started_at: Time.current) if @user_exam.pending?
+
+    if @user_exam.pending?
+      @user_exam.update(status: "in_progress",
+                        started_at: Time.current)
+    end
 
     duration = @user_exam.exam.duration_minutes
     if duration.present? && @user_exam.started_at.present?
@@ -48,7 +56,8 @@ class UserExamsController < ApplicationController
 
   def submit_answers
     if @user_exam.submit_answers!(answers_params)
-      redirect_to user_exam_path(locale: I18n.locale, id: @user_exam.id), notice: t(".success")
+      redirect_to user_exam_path(locale: I18n.locale, id: @user_exam.id),
+                  notice: t(".success")
     else
       flash.now[:alert] = t(".failure")
       render :take_exam, status: :unprocessable_entity
@@ -61,13 +70,15 @@ class UserExamsController < ApplicationController
 
   def answers_params
     ueq_params = params.require(:user_exam).fetch(:user_exam_questions, {})
-    ueq_params.permit(ueq_params.keys.to_h { |k| [k, [:answer_ids, answer_ids: []]] }).to_h
+    ueq_params.permit(ueq_params.keys.index_with do |_k|
+                        [:text_answer, :answer_ids, {answer_ids: []}]
+                      end).to_h
   end
 
   def set_user_exam_details
     @user_exam_with_details = UserExam.includes(
       user_exam_questions: [
-        { question: :answers },
+        {question: :answers},
         :user_exam_answers
       ]
     ).find(params[:id])

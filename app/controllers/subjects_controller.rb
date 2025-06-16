@@ -10,10 +10,10 @@ class SubjectsController < ApplicationController
     @exam = @subject.exam
     @user_attempts = UserExam.none
 
-    if user_signed_in? && @exam.present?
-      @user_attempts = current_user.user_exams
-                                   .get_exam(@exam)
-                                   .attempt
-    end
+    return unless user_signed_in? && @exam.present?
+
+    @user_attempts = current_user.user_exams
+                                 .get_exam(@exam)
+                                 .attempt
   end
 end

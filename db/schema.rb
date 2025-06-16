@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_16_023124) do
+ActiveRecord::Schema[7.0].define(version: 2025_06_18_002917) do
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.text "content", null: false
@@ -67,6 +67,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_16_023124) do
     t.integer "display_order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "text_answer"
+    t.float "score", default: 0.0
     t.index ["question_id"], name: "index_user_exam_questions_on_question_id"
     t.index ["user_exam_id", "question_id"], name: "index_user_exam_questions_on_exam_and_question", unique: true
     t.index ["user_exam_id"], name: "index_user_exam_questions_on_user_exam_id"

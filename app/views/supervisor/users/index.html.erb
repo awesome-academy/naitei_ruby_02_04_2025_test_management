@@ -1,0 +1,66 @@
+<% provide :title, t(".title") %>
+
+<div class="admin-content-panel">
+  <div class="content-header">
+    <h1 class="content-title"><%= t(".title") %></h1>
+  </div>
+
+  <div class="search-bar-wrapper">
+    <%= form_with(url: supervisor_users_path, method: :get, local: true) do |form| %>
+      <div class="search-input-group">
+        <%= tag.i class: "fas fa-search search-icon" %>
+        <%= form.search_field :query, value: params[:query], placeholder: t(".search_placeholder"), class: "search-input" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th><%= t(".table_headers.id") %></th>
+          <th><%= t(".table_headers.user") %></th>
+          <th><%= t(".table_headers.role") %></th>
+          <th><%= t(".table_headers.status") %></th>
+          <th><%= t(".table_headers.joined_date") %></th>
+          <th><%= t(".table_headers.actions") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+
+            <td class="user-info">
+              <div class="user-avatar">
+                <%= user.email.first.upcase %>
+              </div>
+              <div class="user-details">
+                <span class="user-name"><%= user.name || t(".not_updated") %></span>
+                <span class="user-email"><%= user.email %></span>
+              </div>
+            </td>
+
+            <td><%= user.role.humanize %></td>
+
+            <td>
+              <% if user.active? %>
+                <span class="status-badge status-active"><%= t(".status_labels.active") %></span>
+              <% else %>
+                <span class="status-badge status-inactive"><%= t(".status_labels.inactive") %></span>
+              <% end %>
+            </td>
+
+            <td><%= l(user.created_at, format: :short) %></td>
+
+            <td class="action-buttons">
+              <%= link_to tag.i(class: "fas fa-eye"), supervisor_user_path(user), title: t(".action_titles.view_details") %>
+              <%= link_to tag.i(class: "fas fa-toggle-on"), toggle_active_supervisor_user_path(user),
+                          data: { "turbo-method": :patch }, title: t(".action_titles.toggle_status") %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

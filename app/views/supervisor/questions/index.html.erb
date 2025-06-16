@@ -1,0 +1,70 @@
+<% provide :title, t(".title") %>
+
+<div class="admin-content-panel">
+  <div class="content-header">
+    <h1 class="content-title"><%= t(".title") %></h1>
+  </div>
+
+  <div class="search-form-container">
+    <%= search_form_for @qts, url: supervisor_questions_path, method: :get do |f| %>
+      <div class="search-filters">
+        <div class="filter-group">
+          <%= f.label :content_cont, t(".search_form.content") %>
+          <%= f.search_field :content_cont, placeholder: t(".search_form.content_placeholder"), class: "form-input" %>
+        </div>
+
+        <div class="filter-group">
+          <%= f.label :subject_id_eq, t(".search_form.subject") %>
+          <%= f.collection_select :subject_id_eq, @subjects, :id, :name, { include_blank: t(".search_form.all_subjects") }, { class: "form-select" } %>
+        </div>
+
+        <div class="filter-group">
+          <%= f.label :question_type_eq, t(".search_form.question_type") %>
+          <%= f.select :question_type_eq,
+                       options_for_select(Question.question_types.keys.map { |k| [k.humanize, k] }, params.dig(:q, :question_type_eq)),
+                       { include_blank: t(".search_form.all_types") },
+                       { class: "form-select" } %>
+        </div>
+
+        <div class="filter-actions">
+          <%= f.submit t(".search_form.submit"), class: "button button-primary" %>
+          <%= link_to t(".search_form.clear_filters"), supervisor_questions_path, class: "button button-outline" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th><%= t(".table_headers.content") %></th>
+          <th><%= t(".table_headers.subject") %></th>
+          <th><%= t(".table_headers.type") %></th>
+          <th><%= t(".table_headers.created_at") %></th>
+          <th><%= t(".table_headers.actions") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @questions.any? %>
+          <% @questions.each do |question| %>
+            <tr>
+              <td title="<%= question.content %>"><%= truncate(question.content, length: 50) %></td>
+              <td><%= question.subject&.name %></td>
+              <td><%= question.question_type&.humanize %></td>
+              <td><%= l(question.created_at, format: :short) %></td>
+              <td class="action-buttons">
+                <%= link_to tag.i(class: "fas fa-edit"), edit_supervisor_subject_question_path(question.subject, question), title: t(".action_titles.edit") %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="7" class="text-center"><%= t(".no_records") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+</div>

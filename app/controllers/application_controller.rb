@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    redirect_to root_url, alert: exception.message
   end
 
-  rescue_from ActiveRecord::RecordNotFound do |exception|
+  rescue_from ActiveRecord::RecordNotFound do |_exception|
     flash[:alert] = t("errors.messages.record_not_found")
     redirect_to request.referer || root_path
   end
@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for resource
     if resource.supervisor?
       supervisor_subjects_path
     else

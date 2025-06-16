@@ -23,10 +23,14 @@ exam:
     greater_than_or_equal_to: 0
   pass_ratio:
     greater_than_or_equal_to: 0
-    
+
 user_exam:
   attempt_number:
     greater_than_or_equal_to: 1
+
+user_exam_question:
+  score:
+    greater_than_or_equal_to: 0.0
 
 development:
   <<: *defaults

@@ -1,12 +1,13 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize user
     user ||= User.new
     can :read, Subject
 
     if user.supervisor?
       can :manage, :all
+      can :import_questions, Subject
       cannot :take_exam, UserExam
       cannot :create, UserExam
       cannot :submit_answers, UserExam

@@ -1,0 +1,84 @@
+<% provide :title, t(".title", default: "Quản lý Lượt thi") %>
+
+<div class="page-container user-exams-admin-index">
+  <div class="page-header">
+    <h1 class="page-title"><%= t(".heading", default: "Tất cả các lượt làm bài") %></h1>
+
+    <div class="header-search-form">
+      <%= form_with(url: supervisor_user_exams_path, method: :get, local: true) do |form| %>
+        <div class="search-form-group">
+          <%= form.text_field :query,
+                              value: @search_query,
+                              placeholder: t(".search_placeholder", default: "Tìm theo tên user, môn học..."),
+                              "aria-label": t(".search_placeholder") %>
+          <%= form.submit t(".search_button", default: "Tìm"), class: "button button-primary button-small" %>
+          <% if @search_query.present? %>
+            <%= link_to t("actions.clear_search", default: "Xóa tìm kiếm"), supervisor_user_exams_path, class: "button button-secondary button-small" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @search_query.present? %>
+    <p class="search-results-info">
+      <%= t("user_exams.index.searching_for", query: @search_query) %>
+    </p>
+  <% end %>
+
+  <% results_by_subject = @user_exams.group_by { |user_exam| user_exam.exam.subject } %>
+
+  <% if results_by_subject.any? %>
+    <% results_by_subject.each do |subject, user_exams_for_subject| %>
+      <div class="subject-results-group">
+        <h2 class="subject-title"><%= subject.name %></h2>
+        <div class="user-exams-list">
+          <% user_exams_for_subject.sort_by(&:created_at).reverse.each do |user_exam| %>
+            <%# Link đến trang chi tiết trong namespace supervisor %>
+            <%= link_to supervisor_user_exam_path(user_exam), class: "user-exam-card-link" do %>
+              <div class="content-card user-exam-item <%= user_exam.status %>-card">
+                <div class="card-section">
+                  <div class="exam-info">
+                    <h4 class="item-title">
+                      <%= user_exam.exam.name %>
+                    </h4>
+                    <p class="item-meta">
+                      <span class="user-info">
+                        <i class="fa-solid fa-user"></i>
+                        <%= user_exam.user.name %>
+                      </span>
+                      <span class="meta-divider">|</span>
+                      <%= t("user_exams.index.attempt_number_short", number: user_exam.attempt_number) %>
+                      <span class="meta-divider">|</span>
+                      <% if user_exam.completed_at? %>
+                        <%= t("user_exams.index.submitted_at", time: l(user_exam.completed_at, format: :short)) %>
+                      <% else %>
+                        <%= t("user_exams.statuses.#{user_exam.status}") %>
+                      <% end %>
+                    </p>
+                  </div>
+                  <div class="exam-score-status">
+                    <% if user_exam.pass? || user_exam.fail? %>
+                      <span class="score"><%= user_exam.score %> / 100</span>
+                    <% else %>
+                      <span class="score awaiting-grade"><%= t("user_exams.statuses.pending_grade_display_short") %></span>
+                    <% end %>
+                    <span class="status-badge <%= user_exam.status %>">
+                      <%= t("user_exams.statuses.#{user_exam.status}") %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="empty-state-message"><%= t("supervisor.user_exams.index.no_attempts_found") %></p>
+  <% end %>
+
+  <div class="pagination-wrapper">
+    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+  </div>
+</div>
