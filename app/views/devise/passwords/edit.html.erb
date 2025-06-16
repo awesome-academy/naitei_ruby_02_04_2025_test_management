@@ -1,0 +1,41 @@
+<% provide :title, t(".title") %>
+
+<div class="login-page-wrapper">
+  <div class="image">
+    <%= image_tag "background_image.jpg", alt: "Logo", class: "login-image" %>
+  </div>
+
+  <div class="main-content">
+    <h2><%= t ".heading" %></h2>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= f.hidden_field :reset_password_token %>
+
+      <div class="field">
+        <div class="field-label">
+          <i class="fa-solid fa-lock"></i>
+          <%= f.label :password, t(".new_password_label") %>
+        </div>
+        <% if @minimum_password_length %>
+          <em class="char-minimum">(<%= t(".password_length_minimum", number: @minimum_password_length) %>)</em>
+        <% end %>
+        <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <i class="fa-solid fa-lock"></i>
+          <%= f.label :password_confirmation, t(".confirm_new_password_label") %>
+        </div>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit t(".submit_button") %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
