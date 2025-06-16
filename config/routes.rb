@@ -36,6 +36,12 @@ Rails.application.routes.draw do
           post :grade
         end
       end
+
+      resources :users, only: %i(index show) do
+        member do
+          patch :toggle_active
+        end
+      end
     end
   end
 end

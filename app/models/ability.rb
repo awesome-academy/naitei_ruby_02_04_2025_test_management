@@ -12,8 +12,8 @@ class Ability
       cannot :submit_answers, UserExam
     elsif user.user?
       can :read, UserExam, user_id: user.id
-      can :take_exam, UserExam, user_id: user.id
       can :create, UserExam
+      can :take_exam, UserExam
       can :submit_answers, UserExam, user_id: user.id
     end
   end
