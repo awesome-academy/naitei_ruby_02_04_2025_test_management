@@ -1,0 +1,53 @@
+<% provide :title, "Làm bài: #{@user_exam.exam.name}" %>
+
+<div class="exam-taking-page">
+  <div class="page-header">
+    <h1 class="page-title"><%= @user_exam.exam.name %></h1>
+    <div id="exam-timer" class="exam-timer" data-end-time="<%= @end_time&.iso8601 %>">
+      Đang tải thời gian...
+    </div>
+  </div>
+
+  <hr class="section-divider">
+  <%= form_with(model: @user_exam, url: submit_answers_user_exam_path(locale: I18n.locale, id: @user_exam), method: :patch, id: "exam-form") do |form| %>
+    <% @user_exam.user_exam_questions.each do |ueq| %>
+    <div class="content-card question-block" id="<%= dom_id(ueq) %>">
+      <div class="card-section">
+        <h4 class="item-title"><%= ueq.display_order %>. <%= ueq.question.content %></h4>
+        <div class="answers-block">
+          <% if ueq.question.essay? %>
+            <%= fields_for "user_exam[user_exam_questions][#{ueq.id}]" do |answer_fields| %>
+              <%= answer_fields.text_area :text_answer, rows: 8, class: "form-control" %>
+            <% end %>
+          <% elsif ueq.question.single_choice? %>
+            <% ueq.question.answers.each do |answer| %>
+              <div class="radio-field">
+                <%= radio_button_tag "user_exam[user_exam_questions][#{ueq.id}][answer_ids]", answer.id, false, {
+                      class: 'input-radio',
+                      id: "user_exam_user_exam_questions_#{ueq.id}_answer_ids_#{answer.id}"
+                    } %>
+                <%= label_tag "user_exam_user_exam_questions_#{ueq.id}_answer_ids_#{answer.id}", answer.content %>
+              </div>
+            <% end %>
+          <% elsif ueq.question.multiple_choice? %>
+            <% ueq.question.answers.each do |answer| %>
+              <div class="checkbox-field">
+                <%= check_box_tag "user_exam[user_exam_questions][#{ueq.id}][answer_ids][]", answer.id, false, {
+                      class: 'input-checkbox',
+                      id: "user_exam_user_exam_questions_#{ueq.id}_answer_ids_#{answer.id}"
+                    } %>
+                <%= label_tag "user_exam_user_exam_questions_#{ueq.id}_answer_ids_#{answer.id}", answer.content %>
+                <%= hidden_field_tag "user_exam[user_exam_questions][#{ueq.id}][answer_ids][]", "" %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="form-actions">
+    <%= form.submit "Nộp bài", class: "button button-primary button-large", id: "submit-exam-button" %>
+  </div>
+<% end %>
+
+</div>

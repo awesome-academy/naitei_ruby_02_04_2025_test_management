@@ -1,0 +1,77 @@
+<% provide :title, @user.name %>
+
+<div class="user-profile-container">
+  <div class="profile-sidebar">
+    <div class="profile-card">
+      <div class="profile-avatar large">
+        <%= @user.email.first.upcase %>
+      </div>
+      <h2 class="profile-name"><%= @user.name || t(".no_name") %></h2>
+      <p class="profile-email"><%= @user.email %></p>
+
+      <div class="profile-badges">
+        <span class="role-badge"><%= @user.role.humanize %></span>
+        <% if @user.active? %>
+          <span class="status-badge status-active"><%= t(".status.active") %></span>
+        <% else %>
+          <span class="status-badge status-inactive"><%= t(".status.inactive") %></span>
+        <% end %>
+      </div>
+
+      <div class="profile-actions">
+        <%= button_to t(@user.active? ? ".actions.deactivate" : ".actions.activate"),
+                       toggle_active_supervisor_user_path(@user),
+                       method: :patch,
+                       class: "button button-secondary" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-main-content">
+    <div class="details-section">
+      <h3 class="details-header"><%= t(".details_section.title") %></h3>
+      <div class="details-list">
+        <div class="detail-item">
+          <span class="detail-key"><%= t(".details_section.joined_date") %></span>
+          <span class="detail-value"><%= l(@user.created_at, format: :long) %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <h3 class="details-header"><%= t(".exam_history_section.title") %></h3>
+      <div class="table-wrapper">
+        <table class="activity-table">
+          <thead>
+            <tr>
+              <th><%= t(".exam_history_section.table_headers.exam_name") %></th>
+              <th><%= t(".exam_history_section.table_headers.status") %></th>
+              <th><%= t(".exam_history_section.table_headers.score") %></th>
+              <th><%= t(".exam_history_section.table_headers.date") %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @user.user_exams.any? %>
+              <% @user.user_exams.each do |user_exam| %>
+                <tr>
+                  <td><%= user_exam.exam.name %></td>
+                  <td><%= user_exam.status.humanize %></td>
+                  <td><%= user_exam.score || t(".exam_history_section.not_applicable") %></td>
+                  <td><%= l(user_exam.started_at, format: :short) %></td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="4" class="text-center"><%= t(".exam_history_section.no_exams_message") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="back-link-wrapper">
+  <%= link_to t(".back_to_list"), supervisor_users_path, class: "back-link" %>
+</div>

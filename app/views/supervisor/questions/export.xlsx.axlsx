@@ -1,0 +1,21 @@
+wb = xlsx_package.workbook
+header_style = wb.styles.add_style(b: true, bg_color: "2F75B5", fg_color: "FFFFFF")
+
+wb.add_worksheet(name: "Questions Export") do |sheet|
+  sheet.add_row ["question_content", "question_type", "answer_content", "is_correct"], style: header_style
+
+  @questions.each do |question|
+    if question.essay?
+      sheet.add_row [question.content, question.question_type]
+    else
+      question.answers.each do |answer|
+        sheet.add_row [
+          question.content,
+          question.question_type,
+          answer.content,
+          answer.is_correct
+        ]
+      end
+    end
+  end
+end

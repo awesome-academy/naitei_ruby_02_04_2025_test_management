@@ -44,7 +44,8 @@ class Supervisor::ExamsController < Supervisor::BaseController
 
   def all_user_exams_finished?
     return true unless @exam.user_exams.exists?
-    @exam.user_exams.all? { |ue| ue.pass? || ue.fail? }
+
+    @exam.user_exams.all?{|ue| ue.pass? || ue.fail?}
   end
 
   def update_used_exam

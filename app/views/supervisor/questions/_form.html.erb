@@ -1,4 +1,4 @@
-<%= form_with(model: @question, url: supervisor_subject_questions_path(locale: I18n.locale, subject_id: @subject.id), class: "resource-form") do |form| %>
+<%= form_with(model: [:supervisor, @subject, @question], local: true, class: "resource-form") do |form| %>
   <%= render "devise/shared/error_messages", resource: @question %>
 
   <div class="form-field">
@@ -34,6 +34,6 @@
 
   <div class="form-actions">
     <%= form.submit (question.new_record? ? t("questions.form.save_button_new") : t("questions.form.save_button_edit")), class: "button button-primary" %>
-    <%= link_to t("actions.cancel"), supervisor_subject_questions_path(subject), class: "button button-secondary" %>
+    <%= link_to t("actions.cancel"), supervisor_subject_path(subject), class: "button button-secondary" %>
   </div>
 <% end %>

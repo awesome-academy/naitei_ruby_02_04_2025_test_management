@@ -8,6 +8,6 @@
   <%= render 'form', subject: @subject, question: @question %>
 
   <div class="page-footer-actions">
-    <%= link_to t("actions.back_to_subject_questions", subject_name: @subject.name), supervisor_subject_questions_path(@subject), class: "button button-link-style" %>
+    <%= link_to t("actions.back_to_subject_questions", subject_name: @subject.name), supervisor_subject_questions_path(locale: I18n.locale, subject_id: @subject.id), class: "button button-link-style" %>
   </div>
 </div>

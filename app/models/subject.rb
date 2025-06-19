@@ -19,10 +19,14 @@ class Subject < ApplicationRecord
                           }
 
   scope :latest, ->{order(created_at: :desc)}
-  scope :search, -> (query) {
+  scope :search, lambda {|query|
     return all if query.blank?
 
     search_query = "%#{query.downcase}%"
     where("LOWER(name) LIKE ? OR LOWER(description) LIKE ?", search_query, search_query)
   }
+
+  def self.ransackable_attributes _auth_object = nil
+    %w(created_at description id name updated_at)
+  end
 end

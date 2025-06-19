@@ -57,23 +57,33 @@ gem "cocoon"
 
 gem "cancancan", "~> 3.0"
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html]
+gem "ransack"
+
+gem "roo", "~> 2.10.0"
+gem "rubyzip", ">= 1.2.0"
+
+gem "axlsx"
+gem "axlsx_rails"
+
+gem "activerecord-import"
+
 # gem "image_processing", "~> 1.2"
+# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html]
 
 group :development, :test do
   gem "debug", platforms: %i(mri mingw x64_mingw)
+  gem "dotenv-rails"
   gem "letter_opener_web"
   gem "rspec-rails", "~> 4.0.1"
   gem "rubocop", "~> 1.26", require: false
   gem "rubocop-checkstyle_formatter", require: false
   gem "rubocop-rails", "~> 2.14.0", require: false
-  gem 'dotenv-rails'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "pry-rails"
   gem "web-console"
-  gem 'pry-rails'
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 

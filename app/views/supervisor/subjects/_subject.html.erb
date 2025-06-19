@@ -8,7 +8,9 @@
   </div>
   <div class="subject-card-footer">
     <div class="delete">
-      <%= link_to supervisor_subject_path(id: subject.id), data: { turbo_method: :delete } do %>
+      <%= link_to supervisor_subject_path(id: subject.id), data: { turbo_method: :delete,
+        turbo_confirm: t("subjects.delete_confirmation", subject_name: subject.name)
+      } do %>
         <i class="fa-solid fa-trash"></i>
         <span><%= t "subjects.delete_text" %></span>
       <% end %>

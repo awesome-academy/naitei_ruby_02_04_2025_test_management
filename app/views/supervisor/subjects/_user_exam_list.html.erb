@@ -1,0 +1,63 @@
+<div class="page-header mt-4">
+  <h2 class="section-title"><%= t(".student_attempts_title", default: "Các lượt làm bài của học viên") %></h2>
+
+  <div class="header-search-form">
+    <%= form_with(url: supervisor_subject_path(@subject), method: :get, local: true) do |form| %>
+      <div class="search-form-group">
+        <%= form.text_field :user_query,
+                            value: @search_user_query,
+                            placeholder: t("supervisor.subjects.show.search_by_user_placeholder"),
+                            "aria-label": t("supervisor.subjects.show.search_by_user_placeholder") %>
+        <%= form.submit t("actions.search"), class: "button button-primary button-small" %>
+        <% if @search_user_query.present? %>
+          <%= link_to t("actions.clear_search"), supervisor_subject_path(@subject), class: "button button-secondary button-small" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="user_exams_list" class="user-exams-container list-container">
+  <% if @user_exams_for_subject&.any? %>
+    <% @user_exams_for_subject.each do |user_exam| %>
+      <%= link_to supervisor_user_exam_path(user_exam), class: "user-exam-card-link" do %>
+        <div class="content-card user-exam-item <%= user_exam.status %>-card">
+          <div class="card-section">
+            <div class="exam-info">
+              <p class="item-meta">
+                <span class="user-info">
+                  <i class="fa-solid fa-user"></i>
+                  <strong><%= user_exam.user.name %></strong>
+                </span>
+                <span class="meta-divider">|</span>
+                <%= t("user_exams.index.attempt_number_short", number: user_exam.attempt_number) %>
+                <span class="meta-divider">|</span>
+                <% if user_exam.completed_at? %>
+                  <%= t("user_exams.index.submitted_at", time: l(user_exam.completed_at, format: :short)) %>
+                <% else %>
+                  <%= t("user_exams.statuses.#{user_exam.status}") %>
+                <% end %>
+              </p>
+            </div>
+            <div class="exam-score-status">
+              <% if user_exam.pass? || user_exam.fail? %>
+                <span class="score"><%= user_exam.score %> / 100</span>
+              <% else %>
+                <span class="score awaiting-grade"><%= t("user_exams.statuses.pending_grade_display_short") %></span>
+              <% end %>
+              <span class="status-badge <%= user_exam.status %>">
+                <%= t("user_exams.statuses.#{user_exam.status}") %>
+              </span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <div class="pagination-wrapper">
+      <%== pagy_nav(@pagy_user_exams) if @pagy_user_exams.pages > 1 %>
+    </div>
+  <% else %>
+    <p class="empty-state-message"><%= t(".no_student_attempts", default: "Chưa có học viên nào làm bài thi cho môn học này.") %></p>
+  <% end %>
+</div>

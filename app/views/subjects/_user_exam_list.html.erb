@@ -1,0 +1,46 @@
+<hr class="section-divider">
+<% if @exam.present? %>
+  <div id="exam-section">
+    <div class="page-header">
+      <h2 class="section-title"><%= @exam.name %></h2>
+    </div>
+
+    <% if @user_attempts.any? %>
+      <h3 class="subsection-title"><%= t(".your_attempt_history", default: "Lịch sử làm bài của bạn") %></h3></br>
+      <div class="user-exams-list">
+        <% @user_attempts.each do |user_exam| %>
+          <%= link_to user_exam_path(user_exam), class: "user-exam-card-link" do %>
+            <div class="content-card user-exam-item <%= user_exam.status %>-card">
+              <div class="card-section">
+                <div class="exam-info">
+                  <h4 class="item-title">
+                    <%= t("user_exams.index.attempt_number", number: user_exam.attempt_number) %>
+                  </h4>
+                  <p class="item-meta">
+                    <% if user_exam.completed_at? %>
+                      <%= t("user_exams.index.submitted_at", time: l(user_exam.completed_at, format: :short)) %>
+                    <% else %>
+                      <%= t("user_exams.statuses.in_progress") %>
+                    <% end %>
+                  </p>
+                </div>
+                <div class="exam-score-status">
+                  <% if user_exam.pass? || user_exam.fail? %>
+                    <span class="score"><%= user_exam.score %> / 100</span>
+                  <% else %>
+                    <span class="score awaiting-grade"><%= t("user_exams.statuses.pending_grade_display_short") %></span>
+                  <% end %>
+                  <span class="status-badge <%= user_exam.status %>">
+                    <%= t("user_exams.statuses.#{user_exam.status}") %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="empty-state-message"><%= t(".no_exam_for_subject", default: "Môn học này hiện chưa có bài kiểm tra.") %></p>
+<% end %>

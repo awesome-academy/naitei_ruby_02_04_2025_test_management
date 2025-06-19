@@ -4,7 +4,7 @@
   <h2><%= t ".title" %></h2>
 
   <div class="main-content">
-    <%= form_for @subject do |f| %>
+    <%= form_for [:supervisor, @subject] do |f| %>
       <div class="field">
         <div class="field-label">
           <i class="fa-solid fa-book"></i>
