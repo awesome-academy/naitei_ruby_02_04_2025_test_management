@@ -4,11 +4,6 @@ FactoryBot.define do
     content { Faker::Lorem.question }
     question_type { %w[multiple_choice single_choice essay].sample }
 
-    after(:create) do |question|
-      create_list(:answer, 2, question: question)
-      create(:answer, :correct, question: question)
-    end
-
     trait :multiple_choice do
       question_type { 'multiple_choice' }
 
