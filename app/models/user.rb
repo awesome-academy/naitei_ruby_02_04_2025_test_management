@@ -4,10 +4,15 @@ class User < ApplicationRecord
     :role
   ].freeze
 
-  enum role: {user: "user", supervisor: "supervisor"}
+  USER_ATTR = [
+    :name,
+    :email,
+    :password,
+    :password_confirmation,
+    :role
+  ].freeze
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+  enum role: {user: "user", supervisor: "supervisor"}
 
   has_many :user_exams, dependent: :restrict_with_exception
 
@@ -25,6 +30,8 @@ class User < ApplicationRecord
 
     where("LOWER(name) LIKE :query OR LOWER(email) LIKE :query", query: sanitized_query)
   }
+
+  has_secure_password
 
   def active_for_authentication?
     super && active?

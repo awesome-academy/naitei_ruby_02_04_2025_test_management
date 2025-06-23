@@ -3,18 +3,11 @@ Rails.application.routes.draw do
     get 'question_imports/new'
     get 'question_imports/create'
   end
+
   scope "(:locale)", locale: /en|vi/ do
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
 
     root to: "subjects#index"
-    devise_for :users
-
-    as :user do
-      get "signup" => "devise/registrations#new"
-      get "signin" => "devise/sessions#new"
-      post "signin" => "devise/sessions#create"
-      delete "signout" => "devise/sessions#destroy"
-    end
 
     resources :subjects, only: %i(index show)
 
@@ -54,6 +47,19 @@ Rails.application.routes.draw do
       resources :users, only: %i(index show) do
         member do
           patch :toggle_active
+        end
+      end
+    end
+
+    namespace :api, defaults: { format: :json } do
+      namespace :v1 do
+        resources :sessions, only: %i(create destroy)
+        resources :users, only: %i(create)
+
+        resources :subjects, only: %i(index show)
+
+        namespace :supervisor do
+          resources :subjects
         end
       end
     end
