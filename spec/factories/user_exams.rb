@@ -1,10 +1,14 @@
 FactoryBot.define do
+  sequence :attempt_sequence do |n|
+    n
+  end
+
   factory :user_exam do
     association :user
     association :exam
     status { 'pending' }
     score { 0 }
-    attempt_number { 1 }
+    attempt_number { generate(:attempt_sequence) }
 
     trait :in_progress do
       status { 'in_progress' }
