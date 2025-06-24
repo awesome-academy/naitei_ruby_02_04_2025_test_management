@@ -19,12 +19,16 @@ FactoryBot.define do
     end
 
     trait :passed do
-      completed
+      status { 'pass' }
+      started_at { 2.hours.ago }
+      completed_at { 1.hour.ago }
       score { Faker::Number.between(from: 70, to: 100) }
     end
 
     trait :failed do
-      completed
+      status { 'fail' }
+      started_at { 2.hours.ago }
+      completed_at { 1.hour.ago }
       score { Faker::Number.between(from: 0, to: 60) }
     end
 
