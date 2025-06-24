@@ -67,14 +67,21 @@ gem "axlsx_rails"
 
 gem "activerecord-import"
 
+gem 'concurrent-ruby', '1.3.4'
+
 # gem "image_processing", "~> 1.2"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html]
 
 group :development, :test do
   gem "debug", platforms: %i(mri mingw x64_mingw)
+  gem "simplecov-rcov"
+  gem "simplecov"
+  gem 'faker'
   gem "dotenv-rails"
   gem "letter_opener_web"
-  gem "rspec-rails", "~> 4.0.1"
+  gem "factory_bot_rails"
+  gem "rspec-rails"
+  gem "rails-controller-testing"
   gem "rubocop", "~> 1.26", require: false
   gem "rubocop-checkstyle_formatter", require: false
   gem "rubocop-rails", "~> 2.14.0", require: false
