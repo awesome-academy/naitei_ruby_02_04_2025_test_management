@@ -67,8 +67,13 @@ gem "axlsx_rails"
 
 gem "activerecord-import"
 
-gem 'concurrent-ruby', '1.3.4'
+gem "concurrent-ruby", "1.3.4"
 
+gem 'rack-cors'
+
+gem 'bcrypt', '~> 3.1.12'
+
+gem 'jwt'
 # gem "image_processing", "~> 1.2"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html]
 

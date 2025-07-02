@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_18_002917) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_01_091533) do
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.text "content", null: false
@@ -95,7 +95,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_18_002917) do
     t.string "role", default: "user", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "password_digest", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
