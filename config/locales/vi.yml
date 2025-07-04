@@ -473,4 +473,16 @@ vi:
       not_saved:
         one: "1 lỗi đã ngăn không cho %{resource} được lưu:"
         other: "%{count} lỗi đã ngăn không cho %{resource} được lưu:"
+  api:
+    v1:
+      supervisor:
+        subjects:
+          create:
+            success: "Môn học đã được tạo thành công."
+          update:
+            success: "Môn học đã được cập nhật thành công."
+          destroy:
+            success: "Môn học đã được xóa thành công."
+            has_exams: "Không thể xóa môn học này vì đã có cấu hình bài thi liên quan."
+            error: "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
   title: "EXAMO"

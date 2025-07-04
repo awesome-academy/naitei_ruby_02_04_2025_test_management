@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  skip_before_action :verify_authenticity_token
   protect_from_forgery with: :exception
   include Pagy::Backend
   include SessionsHelper
@@ -42,22 +41,5 @@ class ApplicationController < ActionController::Base
     else
       subjects_path
     end
-  end
-
-  def authenticate_request
-    header = request.headers['Authorization']
-    token = header.split(' ').last if header
-    begin
-      @decoded = JsonWebToken.decode(token)
-      @current_user = User.find(@decoded[:user_id])
-    rescue ActiveRecord::RecordNotFound => e
-      render json: { errors: e.message }, status: :unauthorized
-    rescue JWT::DecodeError => e
-      render json: { errors: e.message }, status: :unauthorized
-    end
-  end
-
-  def current_user
-    @current_user
   end
 end
